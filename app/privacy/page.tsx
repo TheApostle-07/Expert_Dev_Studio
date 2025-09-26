@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { fadeInUp, MotionSection } from "../../components/ui/motion";
 import {
   ShieldCheck,
@@ -48,78 +49,90 @@ const SECTIONS = [
 export default function PrivacyPage() {
   const updated = new Date();
 
+  // Active section highlight (scroll spy)
+  const [activeId, setActiveId] = useState<(typeof SECTIONS)[number]["id"]>("intro");
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibles = entries.filter((e) => e.isIntersecting);
+        if (visibles.length) {
+          const topmost = visibles.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+          const id = (topmost.target as HTMLElement).id;
+          if (id) setActiveId(id as (typeof SECTIONS)[number]["id"]);
+        }
+      },
+      { root: null, rootMargin: "0px 0px -60% 0px", threshold: 0.2 }
+    );
+
+    SECTIONS.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       {/* HERO */}
       <section
-        className="relative overflow-hidden border-b border-black/5 bg-gradient-to-b from-white to-platinum/40"
+        className="hero--flat relative border-b border-black/5 bg-transparent"
         aria-labelledby="privacy-title"
       >
-        {/* ambient glow */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-[-14rem] h-[30rem] w-[52rem] -translate-x-1/2 rounded-full bg-cerulean/10 blur-3xl" />
-          <div className="absolute right-[-12rem] bottom-[-12rem] h-[26rem] w-[42rem] rounded-full bg-accent/25 blur-3xl" />
-        </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <MotionSection amount={0.25} className="py-16 sm:py-20">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+          <MotionSection amount={0.25} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32">
             <motion.span
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-black/70 shadow-sm backdrop-blur"
+              className="mx-auto flex w-max items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs font-medium text-black/80 shadow-sm backdrop-blur"
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-prussian" />
-              Legal · Privacy first
+              <span aria-hidden className="h-2 w-2 rounded-full bg-cerulean"></span>
+              Privacy & Data Practices
             </motion.span>
 
             <motion.h1
               id="privacy-title"
               variants={fadeInUp}
-              className="mt-4 max-w-4xl font-display text-4xl font-semibold tracking-tight sm:text-5xl"
+              className="mt-6 mx-auto max-w-6xl text-center font-display text-6xl font-bold tracking-[-0.02em] leading-[1.06] sm:text-7xl lg:text-7xl"
             >
-              Privacy Policy
+              <span className="block text-richblack">Privacy Policy</span>
+              <span className="block text-cerulean">Clear, Human & Transparent</span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="mt-3 max-w-2xl text-sm text-black/70 sm:text-base"
+              className="mt-6 mx-auto max-w-3xl text-center text-base leading-8 tracking-[0.01em] text-black/60 sm:text-lg"
             >
-              We design for clarity and treat your data with the same care. This
-              page explains what we collect, why we collect it, and the choices
-              you have. It applies to expertdev.studio and our client projects.
+              Here’s exactly how we collect, use, and protect your information—no jargon, no surprises. This policy covers expertdev.studio and our client work.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="mt-5 flex flex-wrap gap-2">
-              {SECTIONS.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs text-black/70 hover:bg-black/5"
-                >
-                  {s.label}
-                </a>
-              ))}
+            <motion.div
+              variants={fadeInUp}
+              className="mt-4 flex flex-col items-center gap-2 text-xs text-black/60 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <FileText className="h-3.5 w-3.5" />
+                <span>Last updated:</span>
+                <time dateTime={updated.toISOString()}>
+                  {updated.toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                  })}
+                </time>
+              </span>
+              <span aria-hidden className="hidden select-none sm:inline">•</span>
               <button
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-1 rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium text-black hover:bg-black/5"
+                className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-black shadow-sm hover:bg-black/5 sm:mt-0 print:hidden"
+                aria-label="Print Privacy Policy"
               >
                 <Printer className="h-3.5 w-3.5" />
                 Print
               </button>
             </motion.div>
 
-            <motion.p
-              variants={fadeInUp}
-              className="mt-5 text-xs text-black/60"
-            >
-              Last updated:{" "}
-              <time dateTime={updated.toISOString()}>
-                {updated.toLocaleDateString(undefined, {
-                  year: "numeric",
-                  month: "long",
-                  day: "2-digit",
-                })}
-              </time>
-            </motion.p>
+
+
           </MotionSection>
         </div>
       </section>
@@ -129,13 +142,18 @@ export default function PrivacyPage() {
         <div className="grid gap-10 lg:grid-cols-12">
           {/* Sticky quick‑nav on large screens */}
           <aside className="lg:col-span-3">
-            <div className="sticky top-20 hidden lg:block">
+            <div className="sticky top-20 hidden lg:block print:hidden">
               <nav aria-label="On this page" className="space-y-2">
                 {SECTIONS.map((s) => (
                   <a
                     key={s.id}
                     href={`#${s.id}`}
-                    className="block rounded-lg border border-black/10 bg-white px-3 py-2 text-xs text-black/70 hover:bg-black/5"
+                    aria-current={activeId === s.id ? "true" : undefined}
+                    className={`block rounded-lg border px-3 py-2 text-xs transition ${
+                      activeId === s.id
+                        ? "bg-prussian text-white border-prussian"
+                        : "bg-white text-black/70 border-black/10 hover:bg-black/5"
+                    }`}
                   >
                     {s.label}
                   </a>
@@ -396,7 +414,7 @@ export default function PrivacyPage() {
 
                 <a
                   href="/contact"
-                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#FCA311_0%,#FFD56A_100%)] px-4 py-2 text-sm font-semibold text-black shadow-[0_10px_30px_-15px_rgba(0,0,0,0.25)] ring-2 ring-black/5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cerulean/50"
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#FCA311_0%,#FFD56A_100%)] px-4 py-2 text-sm font-semibold text-black shadow-[0_10px_30px_-15px_rgba(0,0,0,0.25)] ring-2 ring-black/5 hover:opacity-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cerulean/50 print:hidden"
                 >
                   Talk to us
                   <ArrowUpRight className="h-4 w-4" />
@@ -408,6 +426,12 @@ export default function PrivacyPage() {
       </section>
 
       {/* SEO: structured data */}
+      <style jsx global>{`
+        html:focus-within{scroll-behavior:smooth}
+        @media (prefers-reduced-motion: reduce){
+          html:focus-within{scroll-behavior:auto}
+        }
+      `}</style>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
