@@ -14,29 +14,20 @@ import { ArrowRight, CheckCircle2, Crown } from "lucide-react";
    - Optional manual override via localStorage: localStorage.setItem('force_ccy','INR')
    ------------------------------------------------------------------------ */
 
-type Currency =
-  | "INR" | "USD" | "EUR" | "GBP" | "AUD" | "CAD" | "SGD" | "AED"
-  | "JPY" | "CHF" | "SEK" | "NOK" | "DKK" | "HKD" | "NZD" | "MYR";
+type Currency = "INR" | "USD" | "EUR";
 
-const COUNTRY_TO_CCY: Record<string, Currency> = {
-  // Core
-  IN: "INR", US: "USD", GB: "GBP", AU: "AUD", CA: "CAD", SG: "SGD", AE: "AED",
-  JP: "JPY", CH: "CHF", SE: "SEK", NO: "NOK", DK: "DKK", HK: "HKD", NZ: "NZD", MY: "MYR",
-  // Euro area
-  AT: "EUR", BE: "EUR", CY: "EUR", EE: "EUR", ES: "EUR", FI: "EUR", FR: "EUR",
-  DE: "EUR", GR: "EUR", IE: "EUR", IT: "EUR", LT: "EUR", LU: "EUR", LV: "EUR",
-  MT: "EUR", NL: "EUR", PT: "EUR", SI: "EUR", SK: "EUR",
-};
 
 // friendly static FX (approx.; adjust anytime)
 // value = INR per 1 unit of currency
 const INR_PER_UNIT: Record<Currency, number> = {
-  INR: 1, USD: 83, EUR: 90, GBP: 105, AUD: 56, CAD: 61, SGD: 61, AED: 22.6,
-  JPY: 0.54, CHF: 92, SEK: 7.9, NOK: 7.2, DKK: 12.1, HKD: 10.6, NZD: 50, MYR: 17.7,
+  INR: 1,
+  USD: 83,
+  EUR: 90,
 };
 
 const DEFAULT_CURRENCY: Currency = "INR";
 const INR_LOCALE = "en-IN";
+const CURRENCIES: Currency[] = ["INR", "USD", "EUR"];
 
 function getOverrideCurrency(): Currency | null {
   try {
@@ -117,48 +108,20 @@ const TZ_HINTS: Record<string, string> = {
 };
 
 function detectCurrency(): { currency: Currency; locale: string } {
-  // allow manual override via URL (?ccy=INR) or localStorage ('force_ccy')
+  // Manual override via URL (?ccy=INR|USD|EUR) or localStorage ('force_ccy')
   const override = getOverrideCurrency();
   if (override) {
     const locale =
       (typeof navigator !== "undefined" && (navigator.languages?.[0] || navigator.language)) ||
-      "en-US";
+      INR_LOCALE;
     return { currency: override, locale };
   }
 
-  // Best available locale for formatting
+  // Default to INR and best-available locale for formatting
   const locale =
     (typeof navigator !== "undefined" && (navigator.languages?.[0] || navigator.language)) ||
-    "en-US";
-
-  // A) Region from locale (may reflect language preference, not location)
-  const regionFromLocale = getRegionFromLocales();
-
-  // B) Region from IANA time zone and from UTC offset (more reliable for “where you are”)
-  let regionFromTZ: string | null = null;
-  if (typeof Intl !== "undefined") {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-    if (tz && TZ_HINTS[tz]) regionFromTZ = TZ_HINTS[tz];
-
-    // Offset fallback (minutes). India is UTC+5:30 → getTimezoneOffset() === -330.
-    const offset = new Date().getTimezoneOffset();
-    if (!regionFromTZ) {
-      if (offset === -330) regionFromTZ = "IN"; // IST
-      // simple guardrails for other common cases when tz is missing
-      else if (offset === 0 && tz.includes("Europe")) regionFromTZ = "GB";
-      else if ((offset <= 0 && offset >= -120) && tz.startsWith("Europe/")) regionFromTZ = "FR"; // rough EU
-    }
-  }
-
-  const region = regionFromTZ || regionFromLocale;
-
-  // Prefer INR explicitly for India; otherwise map region or fall back to DEFAULT_CURRENCY
-  const currency: Currency =
-    region === "IN"
-      ? "INR"
-      : ((region && COUNTRY_TO_CCY[region]) || DEFAULT_CURRENCY);
-
-  return { currency, locale };
+    INR_LOCALE;
+  return { currency: DEFAULT_CURRENCY, locale };
 }
 
 function convertINR(amountINR: number, currency: Currency) {
@@ -166,7 +129,6 @@ function convertINR(amountINR: number, currency: Currency) {
   // Convert INR -> CCY
   const value = amountINR / perUnit;
   // Friendly rounding (no decimals for these price points)
-  if (currency === "JPY") return Math.round(value); // JPY often shown without minor units
   return Math.round(value);
 }
 
@@ -183,19 +145,18 @@ function fmtCurrency(value: number, currency: Currency, locale: string) {
    Keys must match the package title via slugify() below. */
 const BASE_INR: Record<
   string,
-  { inr: number; from?: boolean } // from = show "from" label
+  { inr: number; from?: boolean }
 > = {
-  "l0-landing-sprint": { inr: 29000 },
-  "l1-authority-site": { inr: 79000 },
-  "l2-storefront": { inr: 150000, from: true },
-  "l3-custom-build": { inr: 350000, from: true },
-  "custom-build": { inr: 350000, from: true }, // legacy alias
+  "l0-landing-sprint": { inr: 36999 },
+  "l1-authority-site": { inr: 75999 },
+  "l2-storefront": { inr: 175999, from: true },
+  "l3-custom-build": { inr: 450999, from: true },
+  "custom-build": { inr: 450999, from: true },
 };
 
 function useLocalizedPricing() {
   const [{ currency, locale }, setLoc] = useState(() => detectCurrency());
   useEffect(() => {
-    // Re-evaluate on client after hydration in case SSR locale differs
     const det = detectCurrency();
     setLoc(det);
     try {
@@ -204,11 +165,21 @@ function useLocalizedPricing() {
       }
     } catch {}
   }, []);
-  return { currency, locale };
+
+  const setCurrency = (ccy: Currency) => {
+    setLoc((prev) => ({ ...prev, currency: ccy }));
+    try {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("force_ccy", ccy);
+      }
+    } catch {}
+  };
+
+  return { currency, locale, setCurrency };
 }
 
 export default function Packages() {
-  const { currency, locale } = useLocalizedPricing();
+  const { currency, locale, setCurrency } = useLocalizedPricing();
 
   const rendered = useMemo(() => {
     // Precompute a display fn to avoid recreating in each card
@@ -247,11 +218,44 @@ export default function Packages() {
 
           <motion.p
             variants={fadeInUp}
-            className="mt-2 mx-auto max-w-2xl text-center text-sm text-black/70 sm:mx-0 sm:text-left"
+            className="mt-2 mx-auto max-w-2xl text-center text-sm text-black/70"
           >
-            Pick a plan or ask for custom - either way, we ship fast.{" "}
-            <span className="text-black/50">(Prices auto-localized)</span>
+            Pick a plan or ask for custom - either way, we ship fast.
           </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            className="mt-3 flex justify-center"
+            aria-label="Currency selector"
+          >
+            <div
+              role="tablist"
+              aria-label="Select currency"
+              className="inline-flex items-center gap-1 rounded-full border border-black/10 bg-white/70 p-1 backdrop-blur"
+            >
+              {CURRENCIES.map((ccy) => {
+                const active = currency === ccy;
+                return (
+                  <button
+                    key={ccy}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    aria-pressed={active}
+                    onClick={() => setCurrency(ccy)}
+                    className={[
+                      "px-3.5 py-1.5 text-xs font-semibold rounded-full transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-prussian/30",
+                      active
+                        ? "text-white shadow [text-shadow:0_1px_0_rgba(0,0,0,0.15)] bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)]"
+                        : "text-black/70 hover:bg-black/5",
+                    ].join(" ")}
+                  >
+                    {ccy}
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
 
           {/* Cards */}
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
