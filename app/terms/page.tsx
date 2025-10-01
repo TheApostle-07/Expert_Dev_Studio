@@ -92,16 +92,21 @@ export default function TermsPage() {
     <>
       {/* HERO */}
       <section
-        className="hero--flat relative border-b border-black/5 bg-transparent"
+        className="relative isolate bg-transparent"
         aria-labelledby="terms-title"
       >
+        {/* Minimal ambient — no white wash */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute left-[-12rem] top-[-8rem] h-56 w-56 rounded-full bg-cerulean/8 blur-3xl" />
+          <div className="absolute right-[-12rem] bottom-[-8rem] h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
+        </div>
         <div className="container mx-auto px-6 sm:px-8 lg:px-12">
           <MotionSection amount={0.25} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24">
             <motion.span
               variants={fadeInUp}
               className="mx-auto flex w-max items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs font-medium text-black/80 shadow-sm backdrop-blur"
             >
-              <span aria-hidden className="h-2 w-2 rounded-full bg-cerulean"></span>
+              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-cerulean shadow-[0_0_0_3px_rgba(14,165,233,0.12)]"></span>
               Legal & Terms
             </motion.span>
 
@@ -135,7 +140,7 @@ export default function TermsPage() {
               <span aria-hidden className="hidden select-none sm:inline">•</span>
               <button
                 onClick={() => window.print()}
-                className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-black shadow-sm hover:bg-black/5 sm:mt-0 print:hidden"
+                className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm px-3 py-1 text-xs font-medium text-black shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] hover:bg-white/70 sm:mt-0 print:hidden"
               >
                 <Printer className="h-3.5 w-3.5" />
                 Print
@@ -146,7 +151,11 @@ export default function TermsPage() {
       </section>
 
       {/* CONTENT */}
-      <section className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <section className="relative isolate container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute left-[-10rem] top-[-6rem] h-64 w-64 rounded-full bg-cerulean/5 blur-3xl" />
+          <div className="absolute right-[-8rem] bottom-[-6rem] h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
+        </div>
         <div className="grid gap-10 lg:grid-cols-12">
           {/* Sticky quick‑nav on lg+ */}
           <aside className="lg:col-span-3">
@@ -160,7 +169,7 @@ export default function TermsPage() {
                     className={`block rounded-lg border px-3 py-2 text-xs transition ${
                       activeId === s.id
                         ? "bg-prussian text-white border-prussian"
-                        : "bg-white text-black/70 border-black/10 hover:bg-black/5"
+                        : "bg-white/80 backdrop-blur-sm text-black/70 border-black/10 hover:bg-white/70"
                     }`}
                   >
                     {s.label}
@@ -404,7 +413,7 @@ export default function TermsPage() {
               <motion.section id="contact" variants={fadeInUp} className="scroll-mt-28">
                 <h2 className="font-display text-2xl font-semibold">Contact</h2>
                 <div className="mt-3 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-black/10 bg-white p-4">
+                  <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                     <div className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-cerulean" />
                       <div className="text-sm font-semibold">Email</div>
@@ -416,7 +425,7 @@ export default function TermsPage() {
                       {CONTACT_EMAIL}
                     </a>
                   </div>
-                  <div className="rounded-2xl border border-black/10 bg-white p-4">
+                  <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                     <div className="flex items-center gap-2">
                       <Phone className="h-4 w-4 text-cerulean" />
                       <div className="text-sm font-semibold">Phone</div>
@@ -428,7 +437,7 @@ export default function TermsPage() {
                       {CONTACT_PHONE}
                     </a>
                   </div>
-                  <div className="rounded-2xl border border-black/10 bg-white p-4 sm:col-span-2">
+                  <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 sm:col-span-2 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                     <div className="flex items-center gap-2">
                       <Globe className="h-4 w-4 text-cerulean" />
                       <div className="text-sm font-semibold">Address</div>
