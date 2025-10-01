@@ -144,10 +144,18 @@ export default function ServicesPage() {
       {/* HERO */}
       <section
         id="hero"
-        className="relative isolate bg-white border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
+        className="relative isolate bg-transparent border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
         aria-labelledby="services-hero-title"
-        style={{ backgroundColor: "#ffffff", boxShadow: "none", border: 0, outline: "none" }}
+        style={{ boxShadow: "none", border: 0, outline: "none" }}
       >
+        {/* Soft hero wash to blend with premium background */}
+        <div
+          aria-hidden
+          className="hero-overlay absolute inset-0 -z-10 pointer-events-none [mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/45 to-transparent backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_460px_at_50%_6%,rgba(255,255,255,0.4),rgba(255,255,255,0.2),transparent_70%)]" />
+        </div>
         <div className="relative z-10 mx-auto w-full max-w-none px-6 sm:px-8 lg:px-12">
           <MotionSection amount={0.3} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 text-center">
             {/* Eyebrow */}
@@ -198,7 +206,7 @@ export default function ServicesPage() {
               <a
                 href="/#packages"
                 aria-label="See packages and pricing"
-                className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-medium text-black border border-black/10 shadow-sm transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-prussian/30 no-underline hover:no-underline"
+                className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-xl bg-white/80 backdrop-blur-sm px-6 py-3 text-sm font-medium text-black border border-black/10 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-prussian/30 no-underline hover:no-underline"
               >
                 See packages &amp; pricing
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1" aria-hidden />
@@ -213,7 +221,7 @@ export default function ServicesPage() {
                 ["SEO ready", "SCHEMA + META"],
                 ["Razorpay", "NATIVE CHECKOUT"],
               ].map(([k, v]) => (
-                <div key={k} className="rounded-2xl bg-white p-4 text-center border border-black/10 shadow-sm">
+                <div key={k} className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 text-center shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <div className="flex items-center justify-center gap-2 text-prussian">
                     <CheckCircle2 className="h-4 w-4" aria-hidden />
                     <dt className="text-xs uppercase tracking-wide text-black/60">{v}</dt>
@@ -335,7 +343,7 @@ export default function ServicesPage() {
                 key={t}
                 variants={fadeInUp}
                 whileHover={{ y: -4, transition: { duration: 0.18 } }}
-                className="group rounded-2xl border border-black/10 bg-white p-6 shadow-sm"
+                className="group rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-6 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]"
               >
                 <div className="flex items-center gap-3">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-prussian/10">
@@ -390,7 +398,7 @@ export default function ServicesPage() {
               <motion.div
                 key={step}
                 variants={fadeInUp}
-                className="rounded-2xl border border-black/10 bg-white p-5"
+                className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]"
               >
                 <div className="text-xs font-semibold tracking-wide text-black/50">{step}</div>
                 <div className="mt-1 text-sm font-semibold">{title}</div>
@@ -406,7 +414,7 @@ export default function ServicesPage() {
               ["A/B ready", "Analytics & events"],
               ["Global", "Clients"],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-2xl border border-black/10 bg-white p-4">
+              <div key={k} className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                 <dt className="text-xs uppercase tracking-wide text-black/50">{v}</dt>
                 <dd className="mt-1 text-base font-medium">{k}</dd>
               </div>
@@ -416,7 +424,13 @@ export default function ServicesPage() {
       </section>
 
       {/* PRICING SUMMARY */}
-      <section className="border-y border-black/5 bg-white/60" aria-labelledby="pricing-title">
+      <section className="relative isolate bg-transparent" aria-labelledby="pricing-title">
+        {/* ambient background polish */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(140%_120%_at_50%_30%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(140%_120%_at_50%_30%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/25 to-transparent" />
+          <div className="absolute left-[-12rem] top-[-6rem] h-64 w-64 rounded-full bg-cerulean/10 blur-3xl" />
+          <div className="absolute right-[-10rem] bottom-[-6rem] h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
+        </div>
         <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <MotionSection amount={0.25}>
             <motion.h2
@@ -490,7 +504,7 @@ export default function ServicesPage() {
               <motion.details
                 key={q}
                 variants={fadeInUp}
-                className="group rounded-2xl border border-black/10 bg-white p-4 shadow-sm open:shadow-md"
+                className="group rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] open:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
@@ -508,7 +522,16 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-black/5 bg-white/70" aria-labelledby="cta-title">
+      <section className="relative isolate bg-transparent" aria-labelledby="cta-title">
+        {/* ambient background polish */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/20 to-transparent" />
+          <div className="absolute left-[-10rem] top-[-6rem] h-56 w-56 rounded-full bg-cerulean/10 blur-3xl" />
+          <div className="absolute right-[-8rem] bottom-[-6rem] h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
+        </div>
         <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
           <MotionSection amount={0.25} className="text-center">
             <motion.h2 variants={fadeInUp} id="cta-title" className="font-display text-2xl font-semibold">
