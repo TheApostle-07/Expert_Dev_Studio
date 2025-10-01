@@ -75,9 +75,19 @@ export default function PrivacyPage() {
     <>
       {/* HERO */}
       <section
-        className="hero--flat relative border-b border-black/5 bg-transparent"
+        className="relative isolate bg-transparent"
         aria-labelledby="privacy-title"
       >
+
+        {/* Seamless hero overlay for soft blend */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(120%_120%_at_50%_25%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(120%_120%_at_50%_25%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/35 to-transparent backdrop-blur-[2px]" />
+          <div className="absolute left-[-12rem] top-[-8rem] h-56 w-56 rounded-full bg-cerulean/10 blur-3xl" />
+          <div className="absolute right-[-12rem] bottom-[-8rem] h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
+        </div>
 
         <div className="container mx-auto px-6 sm:px-8 lg:px-12">
           <MotionSection amount={0.25} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32">
@@ -85,7 +95,7 @@ export default function PrivacyPage() {
               variants={fadeInUp}
               className="mx-auto flex w-max items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs font-medium text-black/80 shadow-sm backdrop-blur"
             >
-              <span aria-hidden className="h-2 w-2 rounded-full bg-cerulean"></span>
+              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-cerulean shadow-[0_0_0_3px_rgba(14,165,233,0.12)]"></span>
               Privacy & Data Practices
             </motion.span>
 
