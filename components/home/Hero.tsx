@@ -9,10 +9,18 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate bg-white border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
+      className="relative isolate bg-transparent border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
       aria-labelledby="hero-title"
-      style={{ backgroundColor: "#ffffff", boxShadow: "none", border: 0, outline: "none" }}
+      style={{ boxShadow: "none", border: 0, outline: "none" }}
     >
+      {/* Soft hero wash to blend with premium background */}
+      <div
+        aria-hidden
+        className="hero-overlay absolute inset-0 -z-10 pointer-events-none [mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/45 to-transparent backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(1200px_460px_at_50%_6%,rgba(255,255,255,0.4),rgba(255,255,255,0.2),transparent_70%)]" />
+      </div>
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12">
         <MotionSection amount={0.3} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 text-center">
           {/* Eyebrow */}
@@ -69,7 +77,7 @@ export default function Hero() {
             <a
               href={hero.ctas[1].href}
               aria-label="View packages"
-              className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-medium text-black border border-black/10 shadow-sm transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-prussian/30 no-underline hover:no-underline"
+              className="group inline-flex min-w-[180px] items-center justify-center gap-2 rounded-xl bg-white/80 backdrop-blur-sm px-6 py-3 text-sm font-medium text-black border border-black/10 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-prussian/30 no-underline hover:no-underline"
             >
               View packages
               <ArrowRight
@@ -87,7 +95,7 @@ export default function Hero() {
             {hero.trust.map(([k, v]) => (
               <div
                 key={k}
-                className="flex h-full flex-col justify-between rounded-2xl bg-white p-4 text-center border border-black/10 shadow-sm"
+                className="flex h-full flex-col justify-between rounded-2xl bg-white/80 backdrop-blur-sm p-4 text-center border border-black/10 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]"
               >
                 <div className="flex items-center justify-center gap-2 text-prussian">
                   <CheckCircle2 className="h-4 w-4" aria-hidden />
