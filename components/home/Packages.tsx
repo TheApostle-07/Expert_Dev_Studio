@@ -196,13 +196,14 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="relative border-y border-black/5 bg-white/60"
+      className="relative isolate bg-transparent"
       aria-labelledby="packages-title"
     >
       {/* ambient background polish */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(140%_120%_at_50%_18%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(140%_120%_at_50%_18%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/25 to-transparent" />
         <div className="absolute left-[-12rem] top-[-8rem] h-72 w-72 rounded-full bg-cerulean/10 blur-3xl" />
-        <div className="absolute right-[-10rem] bottom-[-6rem] h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
+        <div className="absolute right-[-10rem] bottom-[-6rem] h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
