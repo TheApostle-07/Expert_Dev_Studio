@@ -215,9 +215,17 @@ export default function ContactPage() {
       {/* HERO */}
       <section
         id="contact-top"
-        className="relative isolate bg-white border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
+        className="relative isolate bg-transparent border-0 ring-0 outline-none shadow-none scroll-mt-28 sm:scroll-mt-32"
         aria-labelledby="contact-hero-title"
       >
+        {/* Soft hero wash to blend with premium background */}
+        <div
+          aria-hidden
+          className="hero-overlay absolute inset-0 -z-10 pointer-events-none [mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(120%_120%_at_50%_28%,_black_72%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/45 to-transparent backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(1200px_460px_at_50%_6%,rgba(255,255,255,0.4),rgba(255,255,255,0.2),transparent_70%)]" />
+        </div>
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12">
           <MotionSection amount={0.25} className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 text-center">
             <motion.span
@@ -276,7 +284,7 @@ export default function ContactPage() {
               <motion.form
                 variants={fadeInUp}
                 onSubmit={onSubmit}
-                className={`mt-6 space-y-4 rounded-2xl border border-black/10 bg-white p-4 shadow-sm sm:p-6 relative ${state === "loading" ? "pointer-events-none" : ""} ${state === "success" ? "ring-1 ring-emerald-300" : state === "error" ? "ring-1 ring-rose-300" : ""}`}
+                className={`mt-6 space-y-4 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] sm:p-6 relative ${state === "loading" ? "pointer-events-none" : ""} ${state === "success" ? "ring-1 ring-emerald-300" : state === "error" ? "ring-1 ring-rose-300" : ""}`}
                 aria-busy={state === "loading"}
                 acceptCharset="UTF-8"
                 noValidate
@@ -455,7 +463,7 @@ export default function ContactPage() {
               {/* Extras to balance the column and add clarity */}
               <motion.div variants={fadeInUp} className="mt-6 grid gap-4 sm:grid-cols-2">
                 {/* What we cover card */}
-                <div className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <h3 className="text-sm font-semibold">What we can cover on the call</h3>
                   <ul className="mt-2 space-y-2 text-xs text-black/70">
                     <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 text-cerulean" /><span>Outcomes, audience, and success criteria.</span></li>
@@ -466,7 +474,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Working style card */}
-                <div className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <h3 className="text-sm font-semibold">How we work</h3>
                   <ul className="mt-2 space-y-2 text-xs text-black/70">
                     <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 text-cerulean" /><span>Weekly sprints, transparent scope, calm comms.</span></li>
@@ -478,7 +486,7 @@ export default function ContactPage() {
               </motion.div>
 
               {/* FAQ accordion */}
-              <motion.div variants={fadeInUp} className="mt-4 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+              <motion.div variants={fadeInUp} className="mt-4 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                 <h3 className="text-sm font-semibold">Common questions</h3>
                 <div className="mt-2 divide-y divide-black/5">
                   <details className="group py-2" open>
@@ -510,7 +518,7 @@ export default function ContactPage() {
               {/* Results + Stack + Logos to enrich the column */}
               <motion.div variants={fadeInUp} className="mt-6 grid gap-4">
                 {/* Recent results */}
-                <div className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <h3 className="text-sm font-semibold">Recent results</h3>
                   <ul className="mt-2 space-y-2 text-xs text-black/70">
                     <li className="flex items-start gap-2">
@@ -538,7 +546,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Preferred stack */}
-                <div className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <h3 className="text-sm font-semibold">Preferred stack</h3>
                   <p className="mt-2 text-xs text-black/60">Modern, proven tools. No bloat.</p>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -553,7 +561,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Social proof logos */}
-                <div className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <h3 className="text-sm font-semibold">We build with</h3>
                   <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                     {DEVICONS.map((icon) => (
@@ -561,7 +569,7 @@ export default function ContactPage() {
                         key={icon.label}
                         title={icon.label}
                         aria-label={icon.label}
-                        className="group flex h-16 items-center justify-center rounded-xl border border-black/10 bg-white/90 shadow-sm transition-all duration-200 will-change-transform hover:scale-[1.06] hover:brightness-110 hover:shadow-md"
+                        className="group flex h-16 items-center justify-center rounded-xl border border-black/10 bg-white/80 backdrop-blur-sm shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] transition-all duration-200 will-change-transform hover:scale-[1.06] hover:brightness-110 hover:shadow-md"
                       >
                         {icon.url ? (
                           <a
@@ -594,7 +602,7 @@ export default function ContactPage() {
               <motion.div variants={fadeInUp} className="grid gap-4 sm:grid-cols-2">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="group flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 shadow-sm transition hover:shadow-md"
+                  className="group flex items-center gap-3 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] transition hover:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]"
                 >
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-prussian/10">
                     <Mail className="h-4 w-4 text-prussian" />
@@ -607,7 +615,7 @@ export default function ContactPage() {
 
                 <a
                   href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
-                  className="group flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 shadow-sm transition hover:shadow-md"
+                  className="group flex items-center gap-3 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] transition hover:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]"
                 >
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10">
                     <Phone className="h-4 w-4 text-black" />
@@ -618,7 +626,7 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cerulean/10">
                     <Clock className="h-4 w-4 text-cerulean" />
                   </span>
@@ -628,7 +636,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+                <div className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cerulean/10">
                     <MapPin className="h-4 w-4 text-cerulean" />
                   </span>
@@ -642,7 +650,7 @@ export default function ContactPage() {
               {/* Calendly — a bit shorter so map can grow */}
               <motion.div
                 variants={fadeInUp}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm"
+                className="overflow-hidden rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]"
               >
                 <div className="flex items-center justify-between gap-4 border-b border-black/10 p-4">
                   <div className="flex items-center gap-2">
@@ -667,7 +675,7 @@ export default function ContactPage() {
 
                   {/* Loader overlay */}
                   <div
-                    className={`absolute inset-0 flex flex-col items-center justify-center bg-white transition-opacity duration-300 ${calLoaded ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                    className={`absolute inset-0 flex flex-col items-center justify-center bg-white/70 backdrop-blur-sm transition-opacity duration-300 ${calLoaded ? "opacity-0 pointer-events-none" : "opacity-100"}`}
                     aria-live="polite"
                     aria-atomic="true"
                   >
@@ -701,7 +709,7 @@ export default function ContactPage() {
               {/* Map — bigger on desktop to use the empty space */}
               <motion.div
                 variants={fadeInUp}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm"
+                className="overflow-hidden rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]"
               >
                 <div className="flex items-center gap-2 border-b border-black/10 p-4">
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10">
@@ -759,7 +767,7 @@ export default function ContactPage() {
               ["NDA-friendly", "Process"],
               ["Global", "Clients"],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-2xl border border-black/10 bg-white p-4">
+              <div key={k} className="rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)]">
                 <dt className="text-xs uppercase tracking-wide text-black/50">{v}</dt>
                 <dd className="mt-1 text-base font-medium">{k}</dd>
               </div>
@@ -769,7 +777,16 @@ export default function ContactPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-black/5 bg-white/70" aria-labelledby="cta-mini">
+      <section className="relative isolate bg-transparent" aria-labelledby="cta-mini">
+        {/* ambient background polish */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/20 to-transparent" />
+          <div className="absolute left-[-10rem] top-[-6rem] h-56 w-56 rounded-full bg-cerulean/10 blur-3xl" />
+          <div className="absolute right-[-8rem] bottom-[-6rem] h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
+        </div>
         <div className="container mx-auto px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
           <MotionSection amount={0.25} className="text-center">
             <motion.h2 id="cta-mini" variants={fadeInUp} className="font-display text-2xl font-semibold text-center">
