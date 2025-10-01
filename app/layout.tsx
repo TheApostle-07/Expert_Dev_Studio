@@ -98,16 +98,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }
 
               /* Responsive page shell: adaptive gutters & max width */
-              :root { --page-max: 1200px; --page-gutter: clamp(16px, 4vw, 40px); }
+              :root { --page-max: 1280px; --page-gutter: clamp(16px, 3.5vw, 40px); }
               .page-shell {
-                width: min(var(--page-max), calc(100% - 2*var(--page-gutter)));
+                box-sizing: border-box;
+                max-width: var(--page-max);
+                width: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                padding-left: var(--page-gutter);
-                padding-right: var(--page-gutter);
+                padding-left: calc(var(--page-gutter) + env(safe-area-inset-left, 0px));
+                padding-right: calc(var(--page-gutter) + env(safe-area-inset-right, 0px));
               }
               @media (min-width: 1536px) {
-                :root { --page-gutter: clamp(24px, 5vw, 56px); --page-max: 1280px; }
+                :root { --page-gutter: clamp(24px, 4.5vw, 56px); --page-max: 1320px; }
               }
 
               /* Unified hairline border tone */
@@ -174,6 +176,80 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }
               /* Hide any absolute-positioned decorative layers inside the hero (blobs, grids, tints) */
               .hero--flat .absolute:not(.hero-overlay) { display: none !important; }
+            `,
+          }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              /* Global premium gradient via fixed layer (non‑repeating) */
+              :root {
+                --bg-0:#ffffff;
+                --bg-1:#f7faff;
+                --bg-2:#eef5ff;
+                --bg-3:#e9f1ff;
+                --brand-cerulean: 0,126,167; /* #007EA7 */
+                --brand-prussian: 0,52,89;   /* #003459 */
+                --brand-accent:   252,163,17;/* #FCA311 */
+                --brand-richblack:0,23,31;   /* #00171F */
+              }
+
+              .bg-root { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+              /* Base vertical wash */
+              .bg-root::before {
+                content: ""; position: absolute; inset: 0;
+                background: linear-gradient(180deg,
+                  var(--bg-0) 0%, var(--bg-1) 24%, var(--bg-2) 58%, var(--bg-3) 100%
+                );
+              }
+
+              /* Sculpted glows + elegant diagonal beam + vignette */
+              .bg-root::after {
+                content: ""; position: absolute; inset: 0;
+                background:
+                  radial-gradient(900px 520px at 14% -8%, rgba(var(--brand-cerulean),0.12), transparent 62%),
+                  radial-gradient(820px 520px at 92% -6%, rgba(var(--brand-prussian),0.10), transparent 64%),
+                  radial-gradient(840px 540px at 50% 118%, rgba(var(--brand-accent),0.10), transparent 68%),
+                  conic-gradient(from 200deg at 70% 20%, rgba(var(--brand-cerulean),0.12), transparent 25%, transparent 75%, rgba(var(--brand-cerulean),0.12) 100%);
+                background-blend-mode: screen, screen, screen, normal;
+                animation: bg-drift 28s ease-in-out infinite alternate;
+                mask-image: radial-gradient(120% 120% at 50% 40%, black 70%, rgba(0,0,0,0.85) 88%, transparent 100%);
+                -webkit-mask-image: radial-gradient(120% 120% at 50% 40%, black 70%, rgba(0,0,0,0.85) 88%, transparent 100%);
+              }
+
+              @keyframes bg-drift {
+                0%   { transform: translate3d(0,0,0) scale(1);   filter: saturate(1); }
+                100% { transform: translate3d(0,-1.2%,0) scale(1.02); filter: saturate(1.02); }
+              }
+
+              @media (prefers-reduced-motion: reduce){
+                .bg-root::after { animation: none; }
+              }
+
+              /* Dark mode variant */
+              @media (prefers-color-scheme: dark){
+                .bg-root::before { 
+                  background: linear-gradient(180deg,
+                    rgba(var(--brand-richblack),1) 0%,
+                    rgba(0,31,46,1) 32%,
+                    rgba(var(--brand-prussian),1) 100%
+                  );
+                }
+                .bg-root::after {
+                  background:
+                    radial-gradient(900px 560px at 20% -10%, rgba(255,255,255,0.06), transparent 62%),
+                    radial-gradient(900px 560px at 95% -10%, rgba(255,255,255,0.05), transparent 62%),
+                    radial-gradient(900px 560px at 50% 120%, rgba(var(--brand-accent),0.12), transparent 70%),
+                    conic-gradient(from 200deg at 70% 20%, rgba(255,255,255,0.05), transparent 25%, transparent 75%, rgba(255,255,255,0.05) 100%);
+                  background-blend-mode: screen;
+                  mask-image: radial-gradient(120% 120% at 50% 40%, black 70%, rgba(0,0,0,0.85) 88%, transparent 100%);
+                  -webkit-mask-image: radial-gradient(120% 120% at 50% 40%, black 70%, rgba(0,0,0,0.85) 88%, transparent 100%);
+                }
+              }
+
+              /* Make html/body transparent so only the fixed layer shows */
+              html, body { background: transparent !important; }
             `,
           }}
         />
@@ -381,12 +457,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="min-h-dvh text-richblack antialiased"
         style={{
           minHeight: "100dvh",
-          background: "#ffffff",
+          background: "transparent",
           color: "#00171F",
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale"
         }}
       >
+
+        {/* Global gradient background layer */}
+        <div className="bg-root" aria-hidden="true" />
 
         {/* Anchor for "Back to top" */}
         <div id="top" className="sr-only" />
