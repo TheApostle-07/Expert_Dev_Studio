@@ -6,7 +6,16 @@ import { cta } from "./data";
 
 export default function CTA() {
   return (
-    <section className="border-t border-black/5 bg-white/70" aria-labelledby="cta-title">
+    <section className="relative isolate bg-transparent" aria-labelledby="cta-title">
+      {/* ambient background polish */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)] [-webkit-mask-image:radial-gradient(140%_120%_at_50%_40%,_black_70%,_rgba(0,0,0,0.6)_86%,_transparent_100%)]"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/20 to-transparent" />
+        <div className="absolute left-[-10rem] top-[-6rem] h-56 w-56 rounded-full bg-cerulean/10 blur-3xl" />
+        <div className="absolute right-[-8rem] bottom-[-6rem] h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
+      </div>
       <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <MotionSection amount={0.35}>
           <motion.h2
@@ -31,7 +40,7 @@ export default function CTA() {
               className="group relative inline-flex min-w-[200px] items-center justify-center gap-2
                          rounded-xl px-6 py-3 text-sm font-semibold text-white
                          bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)]
-                         shadow-[0_8px_24px_-12px_rgba(0,126,167,0.6)]
+                         shadow-[0_10px_24px_-14px_rgba(0,126,167,0.45)]
                          transition-colors
                          hover:bg-[linear-gradient(90deg,#0C88B4_0%,#009BC4_45%,#074A77_100%)]
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
