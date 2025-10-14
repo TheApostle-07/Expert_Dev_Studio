@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ElementType } from "react";
 import { MotionSection, fadeInUp } from "../../components/ui/motion";
 import {
   Layers3,
@@ -87,9 +87,9 @@ function detectCurrency(): Currency {
 
 const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
   L0: {
-    INR: "₹29,000",
-    USD: "$349",
-    EUR: "€329",
+    INR: "₹36,500",
+    USD: "$399",
+    EUR: "€359",
     GBP: "£289",
     AED: "AED 1,299",
     AUD: "A$529",
@@ -97,9 +97,9 @@ const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
     SGD: "S$479",
   },
   L1: {
-    INR: "₹79,000",
-    USD: "$952",
-    EUR: "€899",
+    INR: "₹75,500",
+    USD: "$849",
+    EUR: "€739",
     GBP: "£799",
     AED: "AED 3,499",
     AUD: "A$1,399",
@@ -107,9 +107,9 @@ const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
     SGD: "S$1,299",
   },
   L2: {
-    INR: "from ₹1,50,000",
-    USD: "from $1,807",
-    EUR: "from €1,699",
+    INR: "₹1,75,500",
+    USD: "$1,999",
+    EUR: "€1,699",
     GBP: "from £1,499",
     AED: "from AED 6,650",
     AUD: "from A$2,699",
@@ -117,9 +117,9 @@ const PRICE_TABLE: Record<PkgCode, Record<Currency, string>> = {
     SGD: "from S$2,499",
   },
   L3: {
-    INR: "from ₹3,50,000",
-    USD: "from $4,217",
-    EUR: "from €3,900",
+    INR: "₹4,50,500",
+    USD: "$4,999",
+    EUR: "€4,399",
     GBP: "from £3,400",
     AED: "from AED 15,500",
     AUD: "from A$6,400",
@@ -132,12 +132,220 @@ function priceFor(code: PkgCode, cur: Currency): string {
   return PRICE_TABLE[code][cur] ?? PRICE_TABLE[code].INR;
 }
 
+// --- Services data + polished card ---
+interface ServiceItem {
+  code?: PkgCode;
+  title: string;
+  bullets: string[];
+  href: string;         // enquiry link
+  buyHref?: string;     // optional direct purchase link
+  Icon: ElementType;
+  badge?: string;
+}
+
+const SERVICES: ServiceItem[] = [
+  {
+    code: "L0",
+    title: "L0 · Landing Sprint",
+    bullets: [
+      "1 page",
+      "Hero + proof + CTA",
+      "Analytics",
+      "7 days",
+    ],
+    href: "/contact?interest=L0",
+    buyHref: "https://rzp.io/rzp/S886sKK",
+    Icon: Layers3,
+    badge: "Fastest launch",
+  },
+  {
+    code: "L1",
+    title: "L1 · Authority Site",
+    bullets: [
+      "3–5 pages",
+      "Blog & SEO basics",
+      "Lead magnet",
+      "2 weeks",
+    ],
+    href: "/contact?interest=L1",
+    buyHref: "https://rzp.io/rzp/dqyI8Hm",
+    Icon: CheckCircle2,
+    badge: "Most popular",
+  },
+  {
+    code: "L2",
+    title: "L2 · Storefront",
+    bullets: [
+      "Catalog",
+      "Razorpay",
+      "Speed tuned",
+      "Schema",
+    ],
+    href: "/contact?interest=L2",
+    buyHref: "https://rzp.io/rzp/u1wMNWQ",
+    Icon: ShoppingCart,
+  },
+  {
+    code: "L3",
+    title: "L3 · Custom Build",
+    badge: "Flagship",
+    bullets: [
+      "Bespoke scope",
+      "Integrations & auth",
+      "Roadmap partnership",
+      "Priority support",
+    ],
+    href: "/contact?interest=L3",
+    buyHref: "https://rzp.io/rzp/92mA2qyb",
+    Icon: Rocket,
+  },
+  {
+    title: "Dashboards & Admins",
+    bullets: [
+      "Role‑based UIs",
+      "Clean data flows",
+      "Accessible, maintainable components",
+    ],
+    href: "/contact?interest=dashboards",
+    Icon: LayoutDashboard,
+  },
+  {
+    title: "Performance Tuning",
+    bullets: [
+      "Core Web Vitals wins",
+      "Asset budgets & smart caching",
+      "Edge/CDN strategy",
+    ],
+    href: "/contact?interest=performance",
+    Icon: GaugeCircle,
+  },
+  {
+    title: "Maintenance & Growth",
+    bullets: [
+      "Retainers with response SLOs",
+      "A/B tests, analytics, SEO",
+      "Quarterly growth roadmap",
+    ],
+    href: "/contact?interest=maintenance",
+    Icon: Wrench,
+    badge: "Retainer",
+  },
+  {
+    title: "Content & SEO",
+    bullets: [
+      "Keyword strategy & IA",
+      "Editorial system in your CMS",
+      "On‑page SEO & schema",
+    ],
+    href: "/contact?interest=seo",
+    Icon: Search,
+  },
+  {
+    title: "Migration & Replatforming",
+    bullets: [
+      "Technical audit & plan",
+      "Zero‑downtime migration",
+      "Performance & SEO safeguards",
+    ],
+    href: "/contact?interest=migration",
+    Icon: MoveRight,
+  },
+];
+
+function ServiceCard({
+  item,
+  price,
+}: {
+  item: ServiceItem;
+  price?: string;
+}) {
+  const { Icon } = item;
+  return (
+    <motion.article
+      variants={fadeInUp}
+      whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.18 } }}
+      className="group relative"
+    >
+      {/* Gradient border frame */}
+      <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-cerulean/30 via-prussian/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+      <div className="rounded-2xl border border-black/10 bg-white/85 backdrop-blur-sm p-6 shadow-[0_4px_22px_-10px_rgba(0,0,0,0.18)] transition-all duration-300 group-hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.25)] flex h-full flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(0,126,167,0.15),rgba(0,52,89,0.15))] ring-1 ring-cerulean/20">
+              <Icon className="h-5 w-5 text-prussian" aria-hidden />
+            </span>
+            <h3 className="text-base font-semibold tracking-tight">{item.title}</h3>
+          </div>
+          {item.badge ? (
+            <span className="whitespace-nowrap rounded-full bg-prussian/10 px-2.5 py-1 text-xs font-medium text-prussian/90 ring-1 ring-prussian/15">
+              {item.badge}
+            </span>
+          ) : null}
+        </div>
+
+        {/* Price (if any) */}
+        {price ? (
+          <div className="mt-2 inline-flex items-center rounded-full bg-cerulean/10 px-2.5 py-1 text-sm font-semibold text-prussian ring-1 ring-cerulean/20" suppressHydrationWarning>
+            {price}
+          </div>
+        ) : null}
+
+        {/* Bullets */}
+        <ul className="mt-4 space-y-2.5 text-sm leading-[1.6] text-black/75">
+          {item.bullets.map((b) => (
+            <li key={b} className="flex items-start gap-2.5">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 text-cerulean shrink-0" aria-hidden />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Actions */}
+        <div className="mt-auto pt-5 flex w-full flex-wrap items-center justify-center gap-3 border-t border-black/5">
+          {item.buyHref ? (
+            <>
+              {/* Primary: Reserve Now */}
+              <a
+                href={item.buyHref}
+                aria-label={`Reserve ${item.title} now`}
+                className="inline-flex min-w-[140px] justify-center items-center gap-2 rounded-xl bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_30px_-12px_rgba(0,126,167,0.55)] transition-[transform,box-shadow] hover:shadow-[0_18px_40px_-18px_rgba(0,126,167,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
+              >
+                <ShoppingCart className="h-4 w-4 text-white" strokeWidth={2.25} aria-hidden />
+                Reserve Now
+              </a>
+              {/* Secondary: Enquire */}
+              <a
+                href={item.href}
+                aria-label={`Enquire about ${item.title}`}
+                className="inline-flex min-w-[140px] justify-center items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-prussian ring-2 ring-cerulean/20 shadow-[0_10px_24px_-16px_rgba(0,52,89,0.45)] transition-all hover:ring-cerulean/35 hover:shadow-[0_16px_34px_-18px_rgba(0,52,89,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
+              >
+                <Sparkles className="h-4 w-4 text-prussian" aria-hidden />
+                Enquire
+              </a>
+            </>
+          ) : (
+            /* Default: Enquire primary (premium, longer button) */
+            <a
+              href={item.href}
+              aria-label={`Enquire about ${item.title}`}
+              className="inline-flex w-full max-w-[260px] justify-center items-center gap-2 rounded-full bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_-14px_rgba(0,126,167,0.60)] ring-1 ring-cerulean/25 transition-[transform,box-shadow] hover:shadow-[0_22px_46px_-20px_rgba(0,126,167,0.70)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
+            >
+              <Sparkles className="h-4 w-4 text-white" aria-hidden />
+              Enquire
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 export default function ServicesPage() {
-  // Lock Services page prices to USD to match homepage; still allow explicit overrides (?ccy=... or localStorage 'force_ccy')
-  const [ccy, setCcy] = useState<Currency>("USD");
+  // Auto-detect currency; allow explicit overrides (?ccy=... or localStorage 'force_ccy')
+  const [ccy, setCcy] = useState<Currency>(detectCurrency());
   useEffect(() => {
     const override = getOverrideCurrency();
-    setCcy(override || "USD");
+    setCcy(override || detectCurrency());
   }, []);
   return (
     <>
@@ -177,8 +385,8 @@ export default function ServicesPage() {
               style={{ overflow: "visible" }}
             >
               <>
-                Websites that turn traffic into revenue
-                <span className="relative z-10 block mt-2 bg-transparent text-cerulean"> Launched Fast. Built Right.</span>
+                Highest-converting websites
+                <span className="relative z-10 block mt-2 bg-transparent text-cerulean">for coaches creators</span>
               </>
             </motion.h1>
 
@@ -187,7 +395,7 @@ export default function ServicesPage() {
               variants={fadeInUp}
               className="mt-5 mx-auto max-w-3xl text-center text-base sm:text-lg leading-8 tracking-[0.01em] text-black/70 [text-wrap:balance]"
             >
-              Get a conversion focused site engineered for speed, SEO and trust. We plan with you, build in focused sprints, and prove results with analytics you can use.
+              We craft modern websites that load in a blink, build trust, and turn traffic into paid clients - no fluff, just outcomes.
             </motion.p>
 
             {/* CTAs */}
@@ -251,120 +459,44 @@ export default function ServicesPage() {
             Choose a starting point. We ship outcomes, not busywork.
           </motion.p>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                code: "L0" as PkgCode,
-                t: "L0 · Landing Page Sprint",
-                d: [
-                  "High converting hero, trust proof, clear CTA",
-                  "Analytics + event tracking set up",
-                  "Go live in 7 days",
-                ],
-                Icon: Layers3,
-              },
-              {
-                code: "L1" as PkgCode,
-                t: "L1 · Authority Site",
-                d: [
-                  "3–5 pages + blog hub",
-                  "SEO foundations + schema",
-                  "Lead magnet + opt in",
-                ],
-                Icon: CheckCircle2,
-              },
-              {
-                code: "L2" as PkgCode,
-                t: "L2 · Storefront",
-                d: [
-                  "Clean catalog + product pages",
-                  "Razorpay native checkout",
-                  "Performance tuned for mobile",
-                ],
-                Icon: ShoppingCart,
-              },
-              {
-                code: "L3" as PkgCode,
-                t: "L3 · Custom Build",
-                d: [
-                  "Bespoke scope + roadmap",
-                  "Integrations, auth + automation",
-                  "Senior partnership, ongoing",
-                ],
-                Icon: Rocket,
-              },
-              {
-                t: "Dashboards & Admins",
-                d: [
-                  "Role‑based UIs",
-                  "Clean data flows",
-                  "Accessible, maintainable components",
-                ],
-                Icon: LayoutDashboard,
-              },
-              {
-                t: "Performance Tuning",
-                d: [
-                  "Core Web Vitals wins",
-                  "Asset budgets & smart caching",
-                  "Edge/CDN strategy",
-                ],
-                Icon: GaugeCircle,
-              },
-              {
-                t: "Maintenance & Growth",
-                d: [
-                  "Retainers with response SLOs",
-                  "A/B tests, analytics, SEO",
-                  "Quarterly growth roadmap",
-                ],
-                Icon: Wrench,
-              },
-              {
-                t: "Content & SEO",
-                d: [
-                  "Keyword strategy & IA",
-                  "Editorial system in your CMS",
-                  "On page SEO & schema",
-                ],
-                Icon: Search,
-              },
-              {
-                t: "Migration & Replatforming",
-                d: [
-                  "Technical audit & plan",
-                  "Zero‑downtime migration",
-                  "Performance & SEO safeguards",
-                ],
-                Icon: MoveRight,
-              },
-            ].map(({ t, d, Icon, code }) => (
-              <motion.article
-                key={t}
-                variants={fadeInUp}
-                whileHover={{ y: -4, transition: { duration: 0.18 } }}
-                className="group rounded-2xl border border-black/10 bg-white/80 backdrop-blur-sm p-6 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.12)]"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-prussian/10">
-                    <Icon className="h-5 w-5 text-prussian" aria-hidden />
-                  </span>
-                  <h3 className="text-base font-semibold tracking-tight">{t}</h3>
-                </div>
-                {code && (
-                  <div className="mt-1 text-sm font-semibold text-prussian" suppressHydrationWarning>
-                    {priceFor(code, ccy)}
-                  </div>
-                )}
-                <ul className="mt-3 space-y-2 text-sm text-black/70">
-                  {d.map((x) => (
-                    <li key={x} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-cerulean" aria-hidden />
-                      <span>{x}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.article>
+          <motion.div variants={fadeInUp} className="mx-auto mt-4 flex justify-center">
+            <div
+              role="group"
+              aria-label="Select currency"
+              className="inline-flex items-center gap-1 rounded-xl bg-white/80 backdrop-blur-sm p-1 ring-1 ring-black/10 shadow-[0_6px_18px_-10px_rgba(0,0,0,0.15)]"
+            >
+              {(["INR","USD","EUR"] as Currency[]).map((cur) => (
+                <button
+                  key={cur}
+                  type="button"
+                  onClick={() => {
+                    setCcy(cur);
+                    try { localStorage.setItem("force_ccy", cur); } catch {}
+                  }}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                    ccy === cur
+                      ? "text-white shadow-[0_12px_30px_-12px_rgba(0,126,167,0.55)] ring-1 ring-cerulean/30"
+                      : "text-black/70 hover:text-black"
+                  }`}
+                  style={
+                    ccy === cur
+                      ? { background: "linear-gradient(135deg,#0A6F95 0%,#007EA7 50%,#003459 100%)" }
+                      : {}
+                  }
+                >
+                  {cur}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((item) => (
+              <ServiceCard
+                key={item.title}
+                item={item}
+                price={item.code ? priceFor(item.code, ccy) : undefined}
+              />
             ))}
           </div>
         </MotionSection>
