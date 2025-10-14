@@ -21,8 +21,8 @@ type Currency = "INR" | "USD" | "EUR";
 // value = INR per 1 unit of currency
 const INR_PER_UNIT: Record<Currency, number> = {
   INR: 1,
-  USD: 83,
-  EUR: 90,
+  USD: 88,  // tuned so INR→USD rounding aligns to set price points
+  EUR: 102, // tuned so INR→EUR rounding aligns to set price points
 };
 
 const DEFAULT_CURRENCY: Currency = "INR";
@@ -147,11 +147,20 @@ const BASE_INR: Record<
   string,
   { inr: number; from?: boolean }
 > = {
-  "l0-landing-sprint": { inr: 36999 },
-  "l1-authority-site": { inr: 75999 },
-  "l2-storefront": { inr: 175999, from: true },
-  "l3-custom-build": { inr: 450999, from: true },
-  "custom-build": { inr: 450999, from: true },
+  "l0-landing-sprint": { inr: 36500 },
+  "l1-authority-site": { inr: 75500 },
+  "l2-storefront": { inr: 175500 },
+  "l3-custom-build": { inr: 450500 },
+  "custom-build": { inr: 450500 },
+};
+
+// Exact price overrides per currency (takes precedence over FX conversion)
+const PRICE_OVERRIDES: Record<string, Partial<Record<Currency, number>>> = {
+  "l0-landing-sprint": { USD: 399, EUR: 359 },
+  "l1-authority-site": { USD: 849, EUR: 739 },
+  "l2-storefront": { USD: 1999, EUR: 1699 },
+  "l3-custom-build": { USD: 4999, EUR: 4399 },
+  "custom-build": { USD: 4999, EUR: 4399 },
 };
 
 function useLocalizedPricing() {
@@ -186,9 +195,18 @@ export default function Packages() {
     const display = (slug: string) => {
       const base = BASE_INR[slug];
       if (!base) return "Contact";
+
+      // Prefer exact per-currency overrides for perfect parity
+      const override = PRICE_OVERRIDES[slug]?.[currency];
+      if (override) {
+        const price = fmtCurrency(override, currency, locale);
+        return price; // no "from" prefix; parity across currencies
+      }
+
+      // Fallback: convert from INR base
       const v = convertINR(base.inr, currency);
       const price = fmtCurrency(v, currency, locale);
-      return base.from ? `from ${price}` : price;
+      return price; // no "from" prefix (we removed from flags in BASE_INR)
     };
     return { display };
   }, [currency, locale]);
