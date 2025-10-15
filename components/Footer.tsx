@@ -1,17 +1,19 @@
 // components/Footer.tsx
-import { Mail, Github, Linkedin, Twitter, ArrowRight, ArrowUp, Code2 } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, ArrowRight, ArrowUp, Code2 } from "lucide-react";
+
 
 const NAV_PRIMARY = [
-  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
+
 const NAV_LEGAL = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
+
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -69,13 +71,13 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://twitter.com"
+                  href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-prussian transition hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cerulean/50"
-                  aria-label="Twitter"
+                  aria-label="Instagram"
                 >
-                  <Twitter className="h-4 w-4" aria-hidden />
+                  <Instagram className="h-4 w-4" aria-hidden />
                 </a>
               </li>
               <li>
