@@ -255,9 +255,11 @@ const SERVICES: ServiceItem[] = [
 function ServiceCard({
   item,
   price,
+  onBlockedPayment,
 }: {
   item: ServiceItem;
   price?: string;
+  onBlockedPayment?: (url: string) => void;
 }) {
   const { Icon } = item;
   return (
@@ -307,6 +309,19 @@ function ServiceCard({
               {/* Primary: Reserve Now */}
               <a
                 href={item.buyHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  try {
+                    const ua = typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '';
+                    // Expanded in-app browser detection
+                    const inApp = /FBAN|FBAV|FB_IAB|Instagram|Line|Twitter|LinkedInApp|Snapchat|MiuiBrowser|GSA|; wv;|\bwv\b|WebView|OPR\//i.test(ua);
+                    if (inApp) {
+                      e.preventDefault();
+                      onBlockedPayment && onBlockedPayment(item.buyHref!);
+                    }
+                  } catch {}
+                }}
                 aria-label={`Reserve ${item.title} now`}
                 className="inline-flex min-w-[140px] justify-center items-center gap-2 rounded-xl bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_30px_-12px_rgba(0,126,167,0.55)] transition-[transform,box-shadow] hover:shadow-[0_18px_40px_-18px_rgba(0,126,167,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
               >
@@ -347,6 +362,7 @@ export default function ServicesPage() {
     const override = getOverrideCurrency();
     setCcy(override || detectCurrency());
   }, []);
+  const [payNotice, setPayNotice] = useState<{ url: string } | null>(null);
   return (
     <>
       {/* HERO */}
@@ -496,6 +512,7 @@ export default function ServicesPage() {
                 key={item.title}
                 item={item}
                 price={item.code ? priceFor(item.code, ccy) : undefined}
+                onBlockedPayment={(url) => setPayNotice({ url })}
               />
             ))}
           </div>
@@ -686,6 +703,25 @@ export default function ServicesPage() {
           </MotionSection>
         </div>
       </section>
+
+      {/* Payment Notice Modal */}
+      {payNotice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-6 max-w-xs w-full shadow-lg">
+            <h3 className="text-lg font-semibold">Complete your payment in your browser</h3>
+            <p className="mt-1 text-sm text-black/70">
+              For security, payments work only in your device’s default browser.
+            </p>
+            <ul className="mt-3 text-xs text-black/60 space-y-1">
+              <li><strong>iOS:</strong> Tap the Share icon and choose <em>Open in Safari</em>.</li>
+              <li><strong>Android:</strong> Tap the ⋮ menu and choose <em>Open in Chrome</em>.</li>
+            </ul>
+            <div className="mt-4 grid gap-2">
+              {/* ...buttons... */}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* JSON‑LD: Service + FAQ */}
       <script
