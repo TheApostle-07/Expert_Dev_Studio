@@ -304,51 +304,14 @@ function ServiceCard({
 
         {/* Actions */}
         <div className="mt-auto pt-5 flex w-full flex-wrap items-center justify-center gap-3 border-t border-black/5">
-          {item.buyHref ? (
-            <>
-              {/* Primary: Reserve Now */}
-              <a
-                href={item.buyHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  try {
-                    const ua = typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '';
-                    // Expanded in-app browser detection
-                    const inApp = /FBAN|FBAV|FB_IAB|Instagram|Line|Twitter|LinkedInApp|Snapchat|MiuiBrowser|GSA|; wv;|\bwv\b|WebView|OPR\//i.test(ua);
-                    if (inApp) {
-                      e.preventDefault();
-                      onBlockedPayment && onBlockedPayment(item.buyHref!);
-                    }
-                  } catch {}
-                }}
-                aria-label={`Reserve ${item.title} now`}
-                className="inline-flex min-w-[140px] justify-center items-center gap-2 rounded-xl bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_30px_-12px_rgba(0,126,167,0.55)] transition-[transform,box-shadow] hover:shadow-[0_18px_40px_-18px_rgba(0,126,167,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
-              >
-                <ShoppingCart className="h-4 w-4 text-white" strokeWidth={2.25} aria-hidden />
-                Reserve Now
-              </a>
-              {/* Secondary: Enquire */}
-              <a
-                href={item.href}
-                aria-label={`Enquire about ${item.title}`}
-                className="inline-flex min-w-[140px] justify-center items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-prussian ring-2 ring-cerulean/20 shadow-[0_10px_24px_-16px_rgba(0,52,89,0.45)] transition-all hover:ring-cerulean/35 hover:shadow-[0_16px_34px_-18px_rgba(0,52,89,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
-              >
-                <Sparkles className="h-4 w-4 text-prussian" aria-hidden />
-                Enquire
-              </a>
-            </>
-          ) : (
-            /* Default: Enquire primary (premium, longer button) */
-            <a
-              href={item.href}
-              aria-label={`Enquire about ${item.title}`}
-              className="inline-flex w-full max-w-[260px] justify-center items-center gap-2 rounded-full bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_-14px_rgba(0,126,167,0.60)] ring-1 ring-cerulean/25 transition-[transform,box-shadow] hover:shadow-[0_22px_46px_-20px_rgba(0,126,167,0.70)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
-            >
-              <Sparkles className="h-4 w-4 text-white" aria-hidden />
-              Enquire
-            </a>
-          )}
+          <a
+            href={item.href}
+            aria-label={`Enquire about ${item.title}`}
+            className="inline-flex w-full max-w-[260px] justify-center items-center gap-2 rounded-full bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_45%,#003459_100%)] px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_36px_-14px_rgba(0,126,167,0.60)] ring-1 ring-cerulean/25 transition-[transform,box-shadow] hover:shadow-[0_22px_46px_-20px_rgba(0,126,167,0.70)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cerulean/50"
+          >
+            <Sparkles className="h-4 w-4 text-white" aria-hidden />
+            Enquire
+          </a>
         </div>
       </div>
     </motion.article>
