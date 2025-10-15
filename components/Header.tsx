@@ -7,7 +7,6 @@ import { Menu, X, Sparkles, Code2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
 ];
