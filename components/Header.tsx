@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
+  { href: "/tools/website-rater", label: "Website Rater" },
 ];
 
 export default function Header() {
@@ -44,7 +45,7 @@ export default function Header() {
 
       {/* glass header layer */}
       <div className="border-b border-black/5 bg-white/85 backdrop-blur-sm">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto flex min-h-[4rem] items-center justify-between gap-4 px-4 py-2 sm:px-6 lg:px-8">
           {/* Brand */}
           <a href="/" className="inline-flex items-center gap-2" aria-label="Expert Dev Studio home">
             <span
@@ -60,14 +61,14 @@ export default function Header() {
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="Primary">
             {links.map((l) => {
               const active = pathname === l.href;
               return (
                 <a
                   key={l.href}
                   href={l.href}
-                  className={`group relative text-sm no-underline hover:no-underline focus:no-underline transition ${
+                  className={`group relative whitespace-nowrap text-sm no-underline hover:no-underline focus:no-underline transition ${
                     active ? "text-prussian" : "text-black/70 hover:text-black"
                   }`}
                 >
@@ -82,19 +83,20 @@ export default function Header() {
               );
             })}
             <a
-  href="/contact"
-  className="relative inline-flex items-center gap-2 rounded-xl
-             px-4 py-2.5 text-sm font-semibold text-white
-             bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_40%,#003459_100%)]
-             shadow-[0_8px_24px_-12px_rgba(0,126,167,0.6)]
-             no-underline hover:no-underline transition-colors
-             hover:bg-[linear-gradient(90deg,#0C88B4_0%,#009BC4_40%,#074A77_100%)]
-             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-             focus-visible:ring-accent focus-visible:ring-offset-white"
->
-  <Sparkles className="h-4 w-4" aria-hidden />
-  Get Quote
-</a>
+              href="/contact"
+              className="relative inline-flex items-center gap-2 rounded-xl whitespace-nowrap
+                         px-3 py-2 text-xs font-semibold text-white
+                         bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_40%,#003459_100%)]
+                         shadow-[0_8px_24px_-12px_rgba(0,126,167,0.6)]
+                         no-underline hover:no-underline transition-colors
+                         hover:bg-[linear-gradient(90deg,#0C88B4_0%,#009BC4_40%,#074A77_100%)]
+                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+                         focus-visible:ring-accent focus-visible:ring-offset-white
+                         lg:px-4 lg:py-2.5 lg:text-sm"
+            >
+              <Sparkles className="h-4 w-4" aria-hidden />
+              Get Quote
+            </a>
           </nav>
 
           {/* Mobile toggle */}
@@ -134,19 +136,19 @@ export default function Header() {
                     );
                   })}
                   <a
-  href="/contact"
-  className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl
-             px-4 py-2.5 text-sm font-semibold text-white
-             bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_40%,#003459_100%)]
-             shadow-[0_8px_24px_-12px_rgba(0,126,167,0.6)]
-             no-underline hover:no-underline transition-colors
-             hover:bg-[linear-gradient(90deg,#0C88B4_0%,#009BC4_40%,#074A77_100%)]
-             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-             focus-visible:ring-accent focus-visible:ring-offset-white"
->
-  <Sparkles className="h-4 w-4" aria-hidden />
-  Get Quote
-</a>
+                    href="/contact"
+                    className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl
+                               px-4 py-2.5 text-sm font-semibold text-white
+                               bg-[linear-gradient(90deg,#0A6F95_0%,#007EA7_40%,#003459_100%)]
+                               shadow-[0_8px_24px_-12px_rgba(0,126,167,0.6)]
+                               no-underline hover:no-underline transition-colors
+                               hover:bg-[linear-gradient(90deg,#0C88B4_0%,#009BC4_40%,#074A77_100%)]
+                               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+                               focus-visible:ring-accent focus-visible:ring-offset-white"
+                  >
+                    <Sparkles className="h-4 w-4" aria-hidden />
+                    Get Quote
+                  </a>
                 </nav>
               </div>
             </motion.div>
