@@ -64,6 +64,7 @@ export default function SpinSection() {
     effectiveRemaining === 1
       ? "Spin again (1 chance left)"
       : `Spin again (${effectiveRemaining} chances left)`;
+  const resolvedSpinPack = spinPack ?? { priceInr: 9, spins: 3 };
 
   const noticeStyle = (type: Notice["type"]) => ({
     backgroundColor:
@@ -220,7 +221,8 @@ export default function SpinSection() {
       }
 
       const orderId = data.orderId as string;
-      const spins = typeof data.spins === "number" ? data.spins : spinPack?.spins;
+      const spins =
+        typeof data.spins === "number" ? data.spins : resolvedSpinPack.spins;
       const razorpay = new window.Razorpay({
         key: data.keyId,
         amount: data.amountPaise,
@@ -350,32 +352,30 @@ export default function SpinSection() {
                 No spins left today. Grab extra spins below or come back after reset - we
                 keep this limited so delivery stays reliable.
               </p>
-              {spinPack ? (
-                <div className="mt-3 rounded-lg border border-amber-200 bg-white/90 px-3 py-3 text-[11px] text-amber-900">
-                  <p>
-                    If you're out of spins, you can buy {spinPack.spins} spins for ₹
-                    {spinPack.priceInr.toLocaleString("en-IN")}.
-                  </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={purchaseSpinPack}
-                      disabled={packLoading}
-                      className="inline-flex items-center justify-center rounded-lg bg-prussian px-3 py-2 text-[11px] font-semibold text-white shadow-sm transition hover:bg-prussian/90 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      Buy spins for ₹{spinPack.priceInr.toLocaleString("en-IN")}
-                    </button>
-                  </div>
-                  {packNotice ? (
-                    <div
-                      className="mt-2 rounded-lg border border-black/10 px-3 py-2 text-[11px]"
-                      style={noticeStyle(packNotice.type)}
-                    >
-                      {packNotice.message}
-                    </div>
-                  ) : null}
+              <div className="mt-3 rounded-lg border border-amber-200 bg-white/90 px-3 py-3 text-[11px] text-amber-900">
+                <p>
+                  If you're out of spins, you can buy {resolvedSpinPack.spins} spins for ₹
+                  {resolvedSpinPack.priceInr.toLocaleString("en-IN")}.
+                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={purchaseSpinPack}
+                    disabled={packLoading}
+                    className="inline-flex items-center justify-center rounded-lg bg-prussian px-3 py-2 text-[11px] font-semibold text-white shadow-sm transition hover:bg-prussian/90 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Buy spins for ₹{resolvedSpinPack.priceInr.toLocaleString("en-IN")}
+                  </button>
                 </div>
-              ) : null}
+                {packNotice ? (
+                  <div
+                    className="mt-2 rounded-lg border border-black/10 px-3 py-2 text-[11px]"
+                    style={noticeStyle(packNotice.type)}
+                  >
+                    {packNotice.message}
+                  </div>
+                ) : null}
+              </div>
             </div>
           ) : null}
         </div>
