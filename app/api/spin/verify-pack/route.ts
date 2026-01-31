@@ -9,13 +9,13 @@ import { fingerprintFromRequest } from "../../../../lib/founders/fingerprint";
 import { SESSION_COOKIE, SPIN_ATTEMPTS_PER_WINDOW } from "../../../../lib/founders/config";
 import { SpinPurchaseModel } from "../../../../lib/models/SpinPurchase";
 import { SpinSessionModel } from "../../../../lib/models/SpinSession";
-import { getRazorpayClient } from "../../../../lib/razorpay";
+import { getRazorpayClient, verifyRazorpaySignature } from "../../../../lib/razorpay";
 import { logEvent } from "../../../../lib/founders/logger";
 
 export async function POST(req: Request) {
   await connectToDatabase();
 
-  let payload: { orderId?: string };
+  let payload: { orderId?: string; paymentId?: string; signature?: string };
   try {
     payload = await req.json();
   } catch {
@@ -83,26 +83,40 @@ export async function POST(req: Request) {
     return res;
   }
 
-  let order;
-  try {
-    const client = getRazorpayClient();
-    order = await client.orders.fetch(payload.orderId);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Payment error";
-    return NextResponse.json(
-      {
-        ok: false,
-        error:
-          process.env.NODE_ENV === "production"
-            ? "Payment verification unavailable"
-            : message,
-      },
-      { status: 502 }
-    );
+  let isPaid = false;
+  let paymentId: string | undefined = undefined;
+  if (payload.paymentId && payload.signature) {
+    const ok = verifyRazorpaySignature({
+      orderId: payload.orderId,
+      paymentId: payload.paymentId,
+      signature: payload.signature,
+    });
+    if (!ok) {
+      return NextResponse.json({ ok: false, error: "Invalid payment signature" }, { status: 400 });
+    }
+    isPaid = true;
+    paymentId = payload.paymentId;
+  } else {
+    let order;
+    try {
+      const client = getRazorpayClient();
+      order = await client.orders.fetch(payload.orderId);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Payment error";
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            process.env.NODE_ENV === "production"
+              ? "Payment verification unavailable"
+              : message,
+        },
+        { status: 502 }
+      );
+    }
+    isPaid =
+      order?.status === "paid" || (typeof order?.amount_paid === "number" && order.amount_paid > 0);
   }
-
-  const isPaid =
-    order?.status === "paid" || (typeof order?.amount_paid === "number" && order.amount_paid > 0);
 
   if (!isPaid) {
     return NextResponse.json({ ok: false, error: "Payment not verified yet." });
@@ -110,7 +124,7 @@ export async function POST(req: Request) {
 
   const updateResult = await SpinPurchaseModel.updateOne(
     { orderId: payload.orderId, status: "PENDING" },
-    { $set: { status: "PAID", paidAt: new Date() } }
+    { $set: { status: "PAID", paidAt: new Date(), paymentId } }
   ).exec();
 
   if (updateResult.modifiedCount > 0) {
@@ -137,6 +151,7 @@ export async function POST(req: Request) {
   logEvent("SPIN_PACK_VERIFIED", {
     sessionId: purchase.sessionId,
     orderId: payload.orderId,
+    paymentId,
   });
 
   const res = NextResponse.json({

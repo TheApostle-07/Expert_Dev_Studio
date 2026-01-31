@@ -272,9 +272,46 @@ export default function SpinSection() {
         name: "Expert Dev Studio",
         description: spins ? `Spin pack (${spins} spins)` : "Spin pack",
         order_id: orderId,
-        handler: async () => {
+        handler: async (response?: unknown) => {
           if (attemptId !== packAttemptRef.current) return;
           packCompletedRef.current = true;
+          const payload =
+            response && typeof response === "object"
+              ? (response as {
+                  razorpay_payment_id?: string;
+                  razorpay_order_id?: string;
+                  razorpay_signature?: string;
+                })
+              : null;
+          if (payload?.razorpay_payment_id && payload?.razorpay_signature) {
+            try {
+              const verifyRes = await fetch("/api/spin/verify-pack", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId,
+                  paymentId: payload.razorpay_payment_id,
+                  signature: payload.razorpay_signature,
+                }),
+              });
+              const verify = await verifyRes.json();
+              if (verify.ok) {
+                const nextAttempts = Number(verify.attemptsRemaining ?? 0);
+                const nextExtra = Number(verify.extraSpinsRemaining ?? 0);
+                setAttemptsRemaining(Number.isFinite(nextAttempts) ? nextAttempts : 0);
+                setExtraSpinsRemaining(Number.isFinite(nextExtra) ? nextExtra : 0);
+                fetchStart();
+                setPackNotice({
+                  type: "success",
+                  message: "Spins added. You can spin now.",
+                });
+                setPackLoading(false);
+                return;
+              }
+            } catch {
+              // fall through to retry loop
+            }
+          }
           await verifyWithRetry();
           setPackLoading(false);
         },
