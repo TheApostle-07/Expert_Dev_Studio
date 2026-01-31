@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { motion, fadeInUp, MotionSection } from "../ui/motion";
+import { motion } from "framer-motion";
+import { fadeInUp, MotionSection } from "../ui/motion";
 import { packages } from "./data";
 import { ArrowRight, CheckCircle2, Crown } from "lucide-react";
 

@@ -35,5 +35,4 @@ export function MotionSection({
   );
 }
 
-// Re-export framer-motion's motion as `motion`
-export const motion = fmMotion;
+// Keep this file focused on shared variants/section wrappers.

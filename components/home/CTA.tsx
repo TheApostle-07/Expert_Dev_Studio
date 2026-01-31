@@ -1,6 +1,7 @@
 // components/home/CTA.tsx
 "use client";
-import { motion, fadeInUp, MotionSection } from "../ui/motion";
+import { motion } from "framer-motion";
+import { fadeInUp, MotionSection } from "../ui/motion";
 import { ArrowRight } from "lucide-react";
 import { cta } from "./data";
 

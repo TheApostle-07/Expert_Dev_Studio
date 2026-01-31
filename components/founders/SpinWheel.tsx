@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "../ui/motion";
+import { motion } from "framer-motion";
 import { PRIZES } from "../../lib/founders/prizes";
 
 const SEGMENT_COLORS = ["#007EA7", "#0F6A86", "#FCA311", "#003459", "#0A6F95"];
@@ -19,27 +19,41 @@ export default function SpinWheel({
     const end = Math.round(((index + 1) / segments) * 100);
     return `${color} ${start}% ${end}%`;
   }).join(", ");
+  const pocketLines =
+    "repeating-conic-gradient(from 0deg, rgba(255,255,255,0.55) 0deg 1.2deg, rgba(255,255,255,0) 1.2deg 12deg)";
 
   return (
-    <div className="relative flex items-center justify-center">
-      <div className="absolute -top-3 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 rounded-sm bg-white shadow-[0_6px_12px_-8px_rgba(0,0,0,0.4)]" />
-      <motion.div
-        animate={{ rotate: rotation }}
-        transition={{ duration: 2.8, ease: [0.2, 0.8, 0.2, 1] }}
-        className={`h-64 w-64 rounded-full border border-black/10 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.4)] ${
-          disabled ? "opacity-70" : ""
-        }`}
-        style={{
-          background: `conic-gradient(${gradientStops})`,
-        }}
-      >
-        <div className="flex h-full w-full items-center justify-center rounded-full border-[12px] border-white/70 bg-white/80 text-center text-xs font-semibold text-white/80">
-          <div className="rounded-full bg-white px-3 py-2 text-[10px] uppercase tracking-[0.35em] text-prussian shadow-sm">
+    <div className="relative flex flex-col items-center justify-center">
+      <div className="pointer-events-none absolute -top-5 left-1/2 z-20 -translate-x-1/2">
+        <div className="relative h-7 w-7">
+          <div className="absolute inset-0 rotate-45 rounded-sm border border-black/10 bg-white shadow-[0_10px_24px_-12px_rgba(0,0,0,0.45)]" />
+          <div className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(252,163,17,0.25)]" />
+        </div>
+      </div>
+
+      <div className="relative h-72 w-72">
+        <div className="absolute inset-0 rounded-full bg-white/70 shadow-[0_24px_60px_-35px_rgba(0,0,0,0.45)] ring-1 ring-black/10" />
+        <div className="absolute inset-[10px] rounded-full bg-white/60 ring-1 ring-black/10 shadow-[inset_0_10px_24px_-18px_rgba(0,0,0,0.35)]" />
+        <motion.div
+          animate={{ rotate: rotation }}
+          transition={{ duration: 2.8, ease: [0.2, 0.8, 0.2, 1] }}
+          className={`absolute inset-[14px] rounded-full border border-white/70 shadow-[inset_0_0_0_6px_rgba(255,255,255,0.6)] ${
+            disabled ? "opacity-70" : ""
+          }`}
+          style={{
+            backgroundImage: `${pocketLines}, conic-gradient(${gradientStops})`,
+          }}
+        >
+          <div className="absolute inset-5 rounded-full bg-white/85 ring-1 ring-black/10 shadow-[inset_0_10px_24px_-18px_rgba(0,0,0,0.35)]" />
+        </motion.div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="rounded-full bg-white/90 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-prussian shadow-sm ring-1 ring-black/5 text-center">
             Founder
           </div>
         </div>
-      </motion.div>
-      <div className="absolute bottom-6 text-[11px] uppercase tracking-[0.28em] text-black/45">
+      </div>
+
+      <div className="mt-3 text-[11px] uppercase tracking-[0.22em] text-black/45">
         Spin to reveal
       </div>
     </div>

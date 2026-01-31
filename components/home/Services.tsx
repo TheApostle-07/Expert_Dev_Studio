@@ -1,7 +1,8 @@
 // components/home/Services.tsx
 "use client";
 
-import { motion, fadeInUp, MotionSection } from "../ui/motion";
+import { motion } from "framer-motion";
+import { fadeInUp, MotionSection } from "../ui/motion";
 import { services } from "./data";
 import { ArrowRight } from "lucide-react";
 

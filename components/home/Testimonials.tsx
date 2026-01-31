@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { motion as m, fadeInUp, MotionSection } from "../ui/motion";
+import { fadeInUp, MotionSection } from "../ui/motion";
 import { Quote, Star } from "lucide-react";
 
 import type { Variants as FMVariants } from "framer-motion";
@@ -388,17 +388,17 @@ export default function Testimonials() {
       <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <MotionSection amount={0.25}>
           <div className="mx-auto max-w-3xl text-center">
-            <m.h2
+            <motion.h2
               variants={fadeInUp}
               id="testimonials-title"
               className="font-display text-3xl sm:text-4xl font-semibold tracking-tight"
             >
               What our clients say
-            </m.h2>
-            <m.p variants={fadeInUp} className="mx-auto mt-2 max-w-2xl text-sm sm:text-base text-black/60">
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="mx-auto mt-2 max-w-2xl text-sm sm:text-base text-black/60">
               Real feedback from recent launches — refreshed in real time as new results roll in.
-            </m.p>
-            <m.div
+            </motion.p>
+            <motion.div
               variants={fadeInUp}
               aria-hidden
               className="mx-auto mt-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-cerulean/0 via-cerulean/70 to-cerulean/0"

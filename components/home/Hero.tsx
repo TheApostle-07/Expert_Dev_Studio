@@ -1,8 +1,9 @@
 // components/home/Hero.tsx
 "use client";
 
+import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion, fadeInUp, MotionSection } from "../ui/motion";
+import { fadeInUp, MotionSection } from "../ui/motion";
 import { hero } from "./data";
 
 export default function Hero() {
