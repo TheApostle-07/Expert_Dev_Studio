@@ -42,7 +42,14 @@ export async function POST(req: Request) {
     );
   }
 
-  if (sessionId && purchase.sessionId !== sessionId && purchase.fingerprintHash !== fingerprintHash) {
+  const hasSignedPayment =
+    typeof payload.paymentId === "string" && typeof payload.signature === "string";
+  if (
+    sessionId &&
+    purchase.sessionId !== sessionId &&
+    purchase.fingerprintHash !== fingerprintHash &&
+    !hasSignedPayment
+  ) {
     return NextResponse.json(
       { ok: false, error: "Purchase session mismatch" },
       { status: 403 }
