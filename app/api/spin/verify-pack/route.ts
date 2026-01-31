@@ -15,7 +15,13 @@ import { logEvent } from "../../../../lib/founders/logger";
 export async function POST(req: Request) {
   await connectToDatabase();
 
-  let payload: { orderId?: string; paymentId?: string; signature?: string };
+  let payload: {
+    orderId?: string;
+    paymentId?: string;
+    signature?: string;
+    sessionId?: string;
+    fingerprintHash?: string;
+  };
   try {
     payload = await req.json();
   } catch {
@@ -44,11 +50,15 @@ export async function POST(req: Request) {
 
   const hasSignedPayment =
     typeof payload.paymentId === "string" && typeof payload.signature === "string";
+  const matchedProvided =
+    (payload.sessionId && payload.sessionId === purchase.sessionId) ||
+    (payload.fingerprintHash && payload.fingerprintHash === purchase.fingerprintHash);
   if (
     sessionId &&
     purchase.sessionId !== sessionId &&
     purchase.fingerprintHash !== fingerprintHash &&
-    !hasSignedPayment
+    !hasSignedPayment &&
+    !matchedProvided
   ) {
     return NextResponse.json(
       { ok: false, error: "Purchase session mismatch" },
@@ -161,12 +171,12 @@ export async function POST(req: Request) {
     paymentId,
   });
 
-  const res = NextResponse.json({
-    ok: true,
-    attemptsRemaining,
-    extraSpinsRemaining,
-  });
-  res.cookies.set(SESSION_COOKIE, purchase.sessionId, {
+    const res = NextResponse.json({
+      ok: true,
+      attemptsRemaining,
+      extraSpinsRemaining,
+    });
+    res.cookies.set(SESSION_COOKIE, purchase.sessionId, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

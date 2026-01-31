@@ -49,6 +49,8 @@ export default function SpinSection() {
   const [packLoading, setPackLoading] = useState(false);
   const [packScriptReady, setPackScriptReady] = useState(false);
   const [packOrderId, setPackOrderId] = useState<string | null>(null);
+  const [packSessionId, setPackSessionId] = useState<string | null>(null);
+  const [packFingerprint, setPackFingerprint] = useState<string | null>(null);
   const packAttemptRef = useRef(0);
   const packCompletedRef = useRef(false);
   const useScratch = process.env.NEXT_PUBLIC_FOUNDERS_SCRATCH === "true";
@@ -224,6 +226,10 @@ export default function SpinSection() {
 
       const orderId = data.orderId as string;
       setPackOrderId(orderId);
+      setPackSessionId(typeof data.sessionId === "string" ? data.sessionId : null);
+      setPackFingerprint(
+        typeof data.fingerprintHash === "string" ? data.fingerprintHash : null
+      );
       const spins =
         typeof data.spins === "number" ? data.spins : resolvedSpinPack.spins;
       const verifyPack = async () => {
@@ -292,6 +298,8 @@ export default function SpinSection() {
                   orderId,
                   paymentId: payload.razorpay_payment_id,
                   signature: payload.razorpay_signature,
+                  sessionId: packSessionId,
+                  fingerprintHash: packFingerprint,
                 }),
               });
               const verify = await verifyRes.json();

@@ -103,6 +103,8 @@ export async function POST(req: Request) {
     amountPaise: SPIN_PACK_PRICE_INR * 100,
     keyId: RAZORPAY_KEY_ID,
     spins: SPIN_PACK_SPINS,
+    sessionId,
+    fingerprintHash,
   });
 
   if (isNewSession) {
