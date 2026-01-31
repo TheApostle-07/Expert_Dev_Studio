@@ -37,7 +37,7 @@ Add these to `.env.local`:
 #### Seed slots
 
 ```
-node scripts/seed-sprint-slots.ts
+node scripts/seed-sprint-slots.js
 ```
 
 #### Webhooks

@@ -40,6 +40,12 @@ export async function POST(req: Request) {
     ipHash: hashValue(ip),
   });
 
-  await sendOtpEmail(email, code);
-  return NextResponse.json({ ok: true });
+  const sendResult = await sendOtpEmail(email, code);
+  if (!sendResult.delivered) {
+    return NextResponse.json(
+      { ok: false, error: sendResult.error || "Unable to send OTP" },
+      { status: 500 }
+    );
+  }
+  return NextResponse.json({ ok: true, devOtp: sendResult.devCode });
 }

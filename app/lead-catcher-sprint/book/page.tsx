@@ -83,7 +83,11 @@ export default function LeadCatcherBookPage() {
         setNotice(data.error || "Unable to send OTP.");
         return;
       }
-      setNotice("OTP sent. Check your email.");
+      if (data.devOtp) {
+        setNotice(`OTP sent. Dev code: ${data.devOtp}`);
+      } else {
+        setNotice("OTP sent. Check your email.");
+      }
     } finally {
       setLoading(false);
     }
@@ -235,35 +239,41 @@ export default function LeadCatcherBookPage() {
 
             {authed ? (
               <div className="mt-6 grid gap-4">
-                {Object.entries(grouped).map(([day, daySlots]) => (
-                  <div key={day} className="rounded-2xl border border-black/10 bg-white px-4 py-4">
-                    <p className="text-xs uppercase tracking-[0.3em] text-black/40">{day}</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {daySlots.map((slot) => {
-                        const time = new Intl.DateTimeFormat("en-IN", {
-                          timeZone: "Asia/Kolkata",
-                          hour: "numeric",
-                          minute: "2-digit",
-                        }).format(new Date(slot.startTime));
-                        const active = selected?.id === slot.id;
-                        return (
-                          <button
-                            key={slot.id}
-                            type="button"
-                            onClick={() => setSelected(slot)}
-                            className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
-                              active
-                                ? "bg-cerulean/10 text-cerulean"
-                                : "border border-black/10 text-black/70 hover:bg-black/5"
-                            }`}
-                          >
-                            {time}
-                          </button>
-                        );
-                      })}
-                    </div>
+                {slots.length === 0 ? (
+                  <div className="rounded-2xl border border-black/10 bg-white px-4 py-4 text-sm text-black/70">
+                    No slots are available right now. Please check back soon.
                   </div>
-                ))}
+                ) : (
+                  Object.entries(grouped).map(([day, daySlots]) => (
+                    <div key={day} className="rounded-2xl border border-black/10 bg-white px-4 py-4">
+                      <p className="text-xs uppercase tracking-[0.3em] text-black/40">{day}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {daySlots.map((slot) => {
+                          const time = new Intl.DateTimeFormat("en-IN", {
+                            timeZone: "Asia/Kolkata",
+                            hour: "numeric",
+                            minute: "2-digit",
+                          }).format(new Date(slot.startTime));
+                          const active = selected?.id === slot.id;
+                          return (
+                            <button
+                              key={slot.id}
+                              type="button"
+                              onClick={() => setSelected(slot)}
+                              className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                                active
+                                  ? "bg-cerulean/10 text-cerulean"
+                                  : "border border-black/10 text-black/70 hover:bg-black/5"
+                              }`}
+                            >
+                              {time}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             ) : null}
           </div>

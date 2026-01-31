@@ -11,7 +11,9 @@ export function generateOtp() {
   return { code, codeHash };
 }
 
-export async function sendOtpEmail(email: string, code: string) {
+type OtpSendResult = { delivered: boolean; devCode?: string; error?: string };
+
+export async function sendOtpEmail(email: string, code: string): Promise<OtpSendResult> {
   const from = process.env.OTP_EMAIL_FROM || "ExpertDevStudio <hello@expertdev.studio>";
   const subject = "Your ExpertDevStudio login code";
   const html = `
@@ -25,8 +27,9 @@ export async function sendOtpEmail(email: string, code: string) {
   if (!resend) {
     if (process.env.NODE_ENV !== "production") {
       console.log(`[DEV OTP] ${normalizeEmail(email)} -> ${code}`);
+      return { delivered: true, devCode: code };
     }
-    return;
+    return { delivered: false, error: "Email provider not configured." };
   }
   await resend.emails.send({
     from,
@@ -34,4 +37,5 @@ export async function sendOtpEmail(email: string, code: string) {
     subject,
     html,
   });
+  return { delivered: true };
 }
