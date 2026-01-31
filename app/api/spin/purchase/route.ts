@@ -57,14 +57,26 @@ export async function POST(req: Request) {
       },
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Payment error";
+    const payload = error as {
+      error?: { description?: string; reason?: string; code?: string };
+      message?: string;
+      statusCode?: number;
+    };
+    const message =
+      payload?.error?.description ||
+      payload?.error?.reason ||
+      payload?.message ||
+      (error instanceof Error ? error.message : "Payment error");
+    logEvent("SPIN_PACK_ORDER_FAILED", {
+      sessionId,
+      message,
+      code: payload?.error?.code,
+      statusCode: payload?.statusCode,
+    });
     return NextResponse.json(
       {
         ok: false,
-        error:
-          process.env.NODE_ENV === "production"
-            ? "Payment provider unavailable"
-            : message,
+        error: message || "Payment provider unavailable",
       },
       { status: 502 }
     );
