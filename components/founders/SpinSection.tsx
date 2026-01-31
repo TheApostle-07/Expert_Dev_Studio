@@ -48,6 +48,7 @@ export default function SpinSection() {
   const [packNotice, setPackNotice] = useState<Notice | null>(null);
   const [packLoading, setPackLoading] = useState(false);
   const [packScriptReady, setPackScriptReady] = useState(false);
+  const [packOrderId, setPackOrderId] = useState<string | null>(null);
   const packAttemptRef = useRef(0);
   const packCompletedRef = useRef(false);
   const useScratch = process.env.NEXT_PUBLIC_FOUNDERS_SCRATCH === "true";
@@ -196,6 +197,7 @@ export default function SpinSection() {
     if (packLoading) return;
     setPackNotice(null);
     setPackLoading(true);
+    setPackOrderId(null);
     const attemptId = ++packAttemptRef.current;
     packCompletedRef.current = false;
     try {
@@ -221,8 +223,48 @@ export default function SpinSection() {
       }
 
       const orderId = data.orderId as string;
+      setPackOrderId(orderId);
       const spins =
         typeof data.spins === "number" ? data.spins : resolvedSpinPack.spins;
+      const verifyPack = async () => {
+        const verifyRes = await fetch("/api/spin/verify-pack", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId }),
+        });
+        return verifyRes.json();
+      };
+      const verifyWithRetry = async () => {
+        for (let attempt = 0; attempt < 6; attempt += 1) {
+          const verify = await verifyPack();
+          if (verify.ok) {
+            const nextAttempts = Number(verify.attemptsRemaining ?? 0);
+            const nextExtra = Number(verify.extraSpinsRemaining ?? 0);
+            setAttemptsRemaining(Number.isFinite(nextAttempts) ? nextAttempts : 0);
+            setExtraSpinsRemaining(Number.isFinite(nextExtra) ? nextExtra : 0);
+            fetchStart();
+            setPackNotice({
+              type: "success",
+              message: "Spins added. You can spin now.",
+            });
+            return true;
+          }
+          const error = typeof verify.error === "string" ? verify.error : "";
+          if (!/not verified/i.test(error)) {
+            setPackNotice({
+              type: "error",
+              message: error || "Unable to verify payment. Please refresh.",
+            });
+            return false;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+        setPackNotice({
+          type: "info",
+          message: "Payment received. Spins may take a minute. Tap refresh to verify.",
+        });
+        return false;
+      };
       const razorpay = new window.Razorpay({
         key: data.keyId,
         amount: data.amountPaise,
@@ -233,39 +275,8 @@ export default function SpinSection() {
         handler: async () => {
           if (attemptId !== packAttemptRef.current) return;
           packCompletedRef.current = true;
-          try {
-            const verifyRes = await fetch("/api/spin/verify-pack", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ orderId }),
-            });
-            const verify = await verifyRes.json();
-            if (!verify.ok) {
-              setPackNotice({
-                type: "info",
-                message:
-                  verify.error ||
-                  "Payment received. Spins will appear after verification.",
-              });
-              return;
-            }
-            const nextAttempts = Number(verify.attemptsRemaining ?? 0);
-            const nextExtra = Number(verify.extraSpinsRemaining ?? 0);
-            setAttemptsRemaining(Number.isFinite(nextAttempts) ? nextAttempts : 0);
-            setExtraSpinsRemaining(Number.isFinite(nextExtra) ? nextExtra : 0);
-            fetchStart();
-            setPackNotice({
-              type: "success",
-              message: "Spins added. You can spin now.",
-            });
-          } catch {
-            setPackNotice({
-              type: "info",
-              message: "Payment received. Refresh to see your spins.",
-            });
-          } finally {
-            setPackLoading(false);
-          }
+          await verifyWithRetry();
+          setPackLoading(false);
         },
         modal: {
           ondismiss: () => {
@@ -302,6 +313,40 @@ export default function SpinSection() {
     } catch {
       setPackLoading(false);
       setPackNotice({ type: "error", message: "Payment failed. Please try again." });
+    }
+  };
+
+  const refreshPackStatus = async () => {
+    if (!packOrderId) return;
+    setPackLoading(true);
+    setPackNotice(null);
+    try {
+      const verifyRes = await fetch("/api/spin/verify-pack", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: packOrderId }),
+      });
+      const verify = await verifyRes.json();
+      if (!verify.ok) {
+        setPackNotice({
+          type: "info",
+          message: verify.error || "Payment not verified yet. Try again in a moment.",
+        });
+        return;
+      }
+      const nextAttempts = Number(verify.attemptsRemaining ?? 0);
+      const nextExtra = Number(verify.extraSpinsRemaining ?? 0);
+      setAttemptsRemaining(Number.isFinite(nextAttempts) ? nextAttempts : 0);
+      setExtraSpinsRemaining(Number.isFinite(nextExtra) ? nextExtra : 0);
+      fetchStart();
+      setPackNotice({ type: "success", message: "Spins added. You can spin now." });
+    } catch {
+      setPackNotice({
+        type: "info",
+        message: "Unable to verify yet. Please try again.",
+      });
+    } finally {
+      setPackLoading(false);
     }
   };
 
@@ -387,7 +432,19 @@ export default function SpinSection() {
                     className="mt-2 rounded-lg border border-black/10 px-3 py-2 text-[11px]"
                     style={noticeStyle(packNotice.type)}
                   >
-                    {packNotice.message}
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span>{packNotice.message}</span>
+                      {packNotice.type !== "success" && packOrderId ? (
+                        <button
+                          type="button"
+                          onClick={refreshPackStatus}
+                          disabled={packLoading}
+                          className="inline-flex items-center justify-center rounded-md border border-black/10 bg-white px-2 py-1 text-[10px] font-semibold text-prussian shadow-sm transition hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          Refresh spins
+                        </button>
+                      ) : null}
+                    </div>
                   </div>
                 ) : null}
               </div>
