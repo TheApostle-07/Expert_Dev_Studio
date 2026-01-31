@@ -278,10 +278,22 @@ export default function SpinSection() {
           ? { type: "spin_pack", spins: String(spins) }
           : { type: "spin_pack" },
       });
-      razorpay.on("payment.failed", () => {
+      razorpay.on("payment.failed", (payload: unknown) => {
         if (attemptId !== packAttemptRef.current || packCompletedRef.current) return;
+        const reason =
+          typeof payload === "object" && payload !== null
+            ? (payload as { error?: { description?: string; reason?: string; code?: string } })
+                .error?.description ||
+              (payload as { error?: { description?: string; reason?: string; code?: string } })
+                .error?.reason ||
+              (payload as { error?: { description?: string; reason?: string; code?: string } })
+                .error?.code
+            : null;
         setPackLoading(false);
-        setPackNotice({ type: "error", message: "Payment failed. Please try again." });
+        setPackNotice({
+          type: "error",
+          message: reason ? `Payment failed: ${reason}` : "Payment failed. Please try again.",
+        });
       });
       razorpay.open();
     } catch {
