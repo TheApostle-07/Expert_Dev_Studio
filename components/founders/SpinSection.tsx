@@ -249,8 +249,11 @@ export default function SpinSection() {
               });
               return;
             }
-            setAttemptsRemaining(verify.attemptsRemaining ?? 0);
-            setExtraSpinsRemaining(verify.extraSpinsRemaining ?? 0);
+            const nextAttempts = Number(verify.attemptsRemaining ?? 0);
+            const nextExtra = Number(verify.extraSpinsRemaining ?? 0);
+            setAttemptsRemaining(Number.isFinite(nextAttempts) ? nextAttempts : 0);
+            setExtraSpinsRemaining(Number.isFinite(nextExtra) ? nextExtra : 0);
+            fetchStart();
             setPackNotice({
               type: "success",
               message: "Spins added. You can spin now.",
