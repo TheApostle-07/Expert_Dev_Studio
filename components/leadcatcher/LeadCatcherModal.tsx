@@ -165,7 +165,12 @@ export default function LeadCatcherModal() {
         setNotice(data.error || "Unable to submit. Please try again.");
         return;
       }
-      window.location.href = `/lead-catcher-os/thanks?leadId=${data.leadId}`;
+      const params = new URLSearchParams({
+        leadId: data.leadId,
+        businessType,
+        city,
+      });
+      window.location.href = `/lead-catcher-os/thanks?${params.toString()}`;
     } catch {
       setNotice("Network error. Please try again.");
     } finally {
