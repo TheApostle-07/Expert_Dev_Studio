@@ -31,6 +31,7 @@ export default function Header() {
   return (
     <header
       role="banner"
+      data-site-header
       className={`fixed inset-x-0 top-0 z-50 w-full transition-shadow ${
         elevated ? "shadow-[0_8px_30px_-20px_rgba(0,0,0,0.25)]" : ""
       }`}

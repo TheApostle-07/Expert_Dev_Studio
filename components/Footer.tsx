@@ -21,6 +21,7 @@ export default function Footer() {
   return (
     <footer
       className="relative mt-24 border-t border-black/5 bg-white/85 backdrop-blur"
+      data-site-footer
       aria-label="Footer"
     >
       {/* Accent hairline */}
@@ -55,7 +56,7 @@ export default function Footer() {
 
             <p className="mt-4 max-w-md text-sm leading-relaxed text-black/70 text-center md:text-left">
               Elegant by design. <span className="text-cerulean">Ruthless</span> on performance.
-              We build conversion-focused websites and apps that look premium and load fast on every device.
+              We build conversion-focused websites that look premium and load fast on every device - so your business feels trustworthy the moment someone lands.
             </p>
 
             {/* Socials */}
@@ -144,17 +145,16 @@ export default function Footer() {
        {/* Primary CTA */}
 <div className="md:col-span-3 lg:col-span-3 mx-auto max-w-md text-center md:text-left">
   <h3 className="font-display text-lg font-semibold tracking-tight text-black text-center md:text-left">
-    Get your website built
+    Explore a sprint build
   </h3>
 
   <p className="mt-3 text-sm leading-relaxed text-black/70 text-center md:text-left">
-    Book a 15-minute discovery call. We’ll align on outcomes, scope, and timeline-if there’s a fit,
-    your first sprint for <span className="font-medium">your business</span> starts this week.
+    See how a focused sprint delivers a premium site in days, with clear scope and fast execution.
   </p>
 
   <a
     href="/contact"
-    aria-label="Get your website built"
+    aria-label="Explore a sprint build"
     className="group mt-4 inline-flex w-full min-h-[48px] items-center justify-center gap-2
                rounded-xl px-5 py-3 text-sm font-semibold tracking-tight text-black
                shadow-[0_10px_30px_-15px_rgba(0,0,0,0.25)]
@@ -163,7 +163,7 @@ export default function Footer() {
     // Gradient fallback so label is ALWAYS readable
     style={{ background: "linear-gradient(135deg,#FCA311 0%,#FFD56A 100%)" }}
   >
-    <span className="relative z-[1]">Get your website built</span>
+    <span className="relative z-[1]">Explore a sprint build</span>
     <ArrowRight
       className="h-4 w-4 transform-gpu transition-transform duration-200
                  motion-safe:group-hover:translate-x-1"
