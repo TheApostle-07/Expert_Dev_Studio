@@ -152,7 +152,7 @@ export default function LeadCatcherOSPage() {
             <ProofDialog testimonials={testimonials} proofAssets={proofAssets} />
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {testimonials.map((item) => (
+            {testimonials.slice(0, 3).map((item) => (
               <div
                 key={item.name}
                 className="rounded-2xl border border-black/10 bg-white/95 px-4 py-4 shadow-[0_14px_45px_-26px_rgba(0,0,0,0.3)]"

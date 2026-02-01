@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 import type { Testimonial } from "../../content/testimonials";
 
 export default function ProofDialog({
@@ -35,20 +35,24 @@ export default function ProofDialog({
             aria-labelledby="lcos-proof-title"
             className="relative z-[121] w-full max-w-3xl rounded-3xl border border-black/10 bg-white p-6 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.35)]"
           >
-            <div className="flex flex-col items-center gap-3 text-center">
-              <div>
+            <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
+              <div aria-hidden />
+              <div className="text-center">
                 <p className="text-xs uppercase tracking-[0.3em] text-black/50">Proof</p>
                 <h3 id="lcos-proof-title" className="mt-2 text-xl font-semibold text-prussian">
                   Testimonials & assets
                 </h3>
               </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="rounded-full border border-black/10 px-4 py-1 text-xs text-black/60 hover:bg-black/5"
-              >
-                Close
-              </button>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-black/60 hover:bg-black/5"
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
             </div>
 
             <div className="mt-6 grid gap-4 md:grid-cols-2 text-center">
