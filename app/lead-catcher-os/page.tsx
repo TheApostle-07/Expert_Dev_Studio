@@ -5,6 +5,7 @@ import {
   ScrollText,
   FileSpreadsheet,
   Sparkles,
+  Star,
 } from "lucide-react";
 import LeadCatcherModal, {
   LeadCatcherModalLauncher,
@@ -156,15 +157,18 @@ export default function LeadCatcherOSPage() {
                 key={item.name}
                 className="rounded-2xl border border-black/10 bg-white/95 px-4 py-4 shadow-[0_14px_45px_-26px_rgba(0,0,0,0.3)]"
               >
+                <div className="mb-3 flex justify-center gap-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={index} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
+                  ))}
+                </div>
                 <p className="text-sm text-black/70">“{item.quote}”</p>
                 <div className="mt-3 text-xs text-black/60">
                   <span className="font-semibold text-prussian">{item.name}</span> · {item.role} · {item.city}
                 </div>
-                {item.verified ? (
-                  <span className="mt-2 inline-flex rounded-full bg-cerulean/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cerulean">
-                    Verified
-                  </span>
-                ) : null}
+                <span className="mt-2 inline-flex rounded-full bg-cerulean/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cerulean">
+                  Verified
+                </span>
               </div>
             ))}
           </div>

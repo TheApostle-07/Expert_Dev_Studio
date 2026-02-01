@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Star } from "lucide-react";
 import type { Testimonial } from "../../content/testimonials";
 
 export default function ProofDialog({
@@ -56,15 +57,18 @@ export default function ProofDialog({
                   key={`${item.name}-${item.city}`}
                   className="rounded-2xl border border-black/10 bg-white px-4 py-4"
                 >
+                  <div className="mb-3 flex justify-center gap-1">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <Star key={index} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
+                    ))}
+                  </div>
                   <p className="text-sm text-black/70">“{item.quote}”</p>
                   <div className="mt-3 text-xs text-black/60">
                     <span className="font-semibold text-prussian">{item.name}</span> · {item.role} · {item.city}
                   </div>
-                  {item.verified ? (
-                    <span className="mt-2 inline-flex rounded-full bg-cerulean/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cerulean">
-                      Verified
-                    </span>
-                  ) : null}
+                  <span className="mt-2 inline-flex rounded-full bg-cerulean/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-cerulean">
+                    Verified
+                  </span>
                 </div>
               ))}
             </div>

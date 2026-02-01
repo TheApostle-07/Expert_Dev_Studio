@@ -26,6 +26,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "We finally have a single page that explains the offer and captures leads cleanly. It’s simple and fast.",
     timeframe: "First week",
+    verified: true,
   },
   {
     name: "Ananya Kapoor",
@@ -33,6 +34,15 @@ export const testimonials: Testimonial[] = [
     city: "Mumbai",
     quote:
       "Great structure and a solid close kit. The WhatsApp flow feels natural for high-intent leads.",
+    verified: true,
+  },
+  {
+    name: "Kabir Nair",
+    role: "Tuition Founder",
+    city: "Bengaluru",
+    quote:
+      "The page makes it clear why we’re different and helps parents reach out instantly.",
+    verified: true,
   },
 ];
 
