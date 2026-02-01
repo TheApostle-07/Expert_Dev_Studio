@@ -267,15 +267,6 @@ export default function LeadCatcherOSPage() {
         </section>
       </main>
 
-      <div className="fixed inset-x-0 bottom-4 z-40 mx-auto flex max-w-sm justify-center px-4 md:hidden">
-        <div className="w-full rounded-full border border-black/10 bg-white/80 p-1 backdrop-blur">
-          <LeadCatcherModalLauncher
-            label="Get Demo + Pricing"
-            className="w-full rounded-full bg-prussian px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-18px_rgba(0,0,0,0.4)] transition hover:bg-prussian/90"
-          />
-        </div>
-      </div>
-
       <LeadCatcherModal />
     </div>
   );
