@@ -48,20 +48,20 @@ export default function LeadCatcherOSPage() {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <LeadCatcherModalLauncher
                 label={leadCatcherOSCopy.hero.primaryCta}
-                className="inline-flex items-center justify-center rounded-full bg-prussian px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.35)] transition hover:bg-prussian/90"
+                className="group inline-flex items-center justify-center rounded-full bg-prussian px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-20px_rgba(0,0,0,0.45)] transition hover:-translate-y-0.5 hover:bg-prussian/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cerulean/50"
               />
               <a
                 href="#what-you-get"
-                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-prussian shadow-[0_10px_30px_-22px_rgba(0,0,0,0.2)] hover:bg-black/5"
+                className="group inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-prussian shadow-[0_14px_34px_-22px_rgba(0,0,0,0.25)] transition hover:-translate-y-0.5 hover:bg-black/5"
               >
                 {leadCatcherOSCopy.hero.secondaryCta}
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
               {leadCatcherOSCopy.hero.metrics.map((metric) => (
                 <span
                   key={metric}
-                  className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-black/70 shadow-[0_10px_20px_-16px_rgba(0,0,0,0.2)]"
+                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-semibold text-black/70 shadow-[0_12px_26px_-18px_rgba(0,0,0,0.25)]"
                 >
                   {metric}
                 </span>
