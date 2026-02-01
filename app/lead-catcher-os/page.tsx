@@ -71,20 +71,20 @@ export default function LeadCatcherOSPage() {
           <div className="relative mx-auto mt-10 w-full max-w-3xl rounded-3xl border border-black/10 bg-white/95 p-6 text-center shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/40">Promise</p>
             <h2 className="mt-3 text-2xl font-semibold text-prussian">
-              A WhatsApp-first funnel installed fast.
+              A WhatsApp-first funnel that turns interest into action.
             </h2>
             <p className="mt-3 text-sm text-black/70">
-              Live in 48 hours after intake. Clean structure, premium visuals, and conversion-first messaging.
+              Launch in 48 hours and start capturing higher-intent leads with clear positioning, trust, and follow-through.
             </p>
             <div className="mt-6 grid gap-3 text-sm text-black/70 md:grid-cols-3">
               <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.2)]">
-                Install timeline: <span className="font-semibold text-prussian">48 hours</span>
+                Faster launch: <span className="font-semibold text-prussian">48 hours</span>
               </div>
               <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.2)]">
-                Price: <span className="font-semibold text-prussian">₹50,000</span> all-inclusive
+                Investment: <span className="font-semibold text-prussian">₹50,000</span> all-inclusive
               </div>
               <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.2)]">
-                Lead source: WhatsApp-first conversion path
+                Outcome: More qualified WhatsApp inquiries
               </div>
             </div>
           </div>
@@ -94,9 +94,11 @@ export default function LeadCatcherOSPage() {
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cerulean/40 to-transparent" />
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">What you get</p>
-            <h2 className="mt-3 text-2xl font-semibold text-prussian">A full conversion system</h2>
+            <h2 className="mt-3 text-2xl font-semibold text-prussian">
+              A system built to close faster
+            </h2>
             <p className="mt-2 text-sm text-black/70">
-              Everything needed to turn WhatsApp interest into qualified leads.
+              Everything your prospects need to trust you and take the next step.
             </p>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -139,9 +141,11 @@ export default function LeadCatcherOSPage() {
           <div className="flex flex-col items-center gap-6">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-black/50">Proof</p>
-              <h2 className="mt-3 text-2xl font-semibold text-prussian">Believable, minimal proof</h2>
+              <h2 className="mt-3 text-2xl font-semibold text-prussian">
+                Proof that builds confidence
+              </h2>
               <p className="mt-2 text-sm text-black/70">
-                We keep proof honest and focused on structure, clarity, and outcomes.
+                Honest, minimal proof that signals quality without fluff.
               </p>
             </div>
             <ProofDialog testimonials={testimonials} proofAssets={proofAssets} />

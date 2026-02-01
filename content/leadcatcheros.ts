@@ -2,7 +2,7 @@ export const leadCatcherOSCopy = {
   hero: {
     title: "Lead Catcher OS",
     subhead:
-      "A WhatsApp-first conversion system that turns interest into booked calls and paid deposits.",
+      "Turn casual DMs into qualified inquiries, booked calls, and deposits — without losing leads in the chat.",
     primaryCta: "Get Demo + Pricing",
     secondaryCta: "See what you get",
     metrics: [
@@ -15,52 +15,52 @@ export const leadCatcherOSCopy = {
   whatYouGet: [
     {
       title: "Premium landing page",
-      body: "A clean, high-trust page built for WhatsApp conversion.",
+      body: "A focused page that builds trust fast and nudges quick action.",
       icon: "sparkles",
     },
     {
       title: "WhatsApp click-to-chat CTA",
-      body: "Instant conversations with a frictionless tap.",
+      body: "Lower drop-off with one-tap conversations that feel personal.",
       icon: "message",
     },
     {
       title: "Lead form → Google Sheet CRM",
-      body: "Every lead captured reliably in your sheet.",
+      body: "Every lead saved cleanly with context so you can close faster.",
       icon: "sheet",
     },
     {
       title: "Payment-ready",
-      body: "Razorpay link or deposit flow integration.",
+      body: "Collect deposits or full payments the moment they’re ready.",
       icon: "card",
     },
     {
       title: "Close Kit",
-      body: "Scripts + follow-up flow to speed decisions.",
+      body: "Short scripts + follow-up prompts that move decisions forward.",
       icon: "script",
     },
     {
       title: "Tracking",
-      body: "CTA click events and UTM attribution.",
+      body: "Know which clicks and sources bring real intent.",
       icon: "track",
     },
   ],
   steps: [
     {
       title: "10-min intake",
-      body: "Share your offer, audience, and preferred WhatsApp number.",
+      body: "Share your offer and WhatsApp number so we can position it to convert.",
     },
     {
       title: "48h install",
-      body: "We design, build, and wire the entire funnel.",
+      body: "We build the funnel, copy, and tracking to start capturing leads.",
     },
     {
       title: "Handoff + support",
-      body: "Launch checklist, scripts, and 7-day support.",
+      body: "You get a ready-to-run system plus 7 days of support.",
     },
   ],
   pricing: {
     price: "₹50,000",
-    headline: "All-inclusive install",
+    headline: "All-inclusive install for faster, higher-intent leads",
     inclusions: [
       "Domain install support",
       "1 revision round",
@@ -70,7 +70,7 @@ export const leadCatcherOSCopy = {
   },
   guarantee: [
     "Install Guarantee: live within 48 hours after intake, or we keep working free until it’s live.",
-    "No lead guarantees; we guarantee delivery + conversion-focused structure.",
+    "No lead guarantees; we guarantee delivery + a funnel built to convert warm interest.",
   ],
   finalCta: {
     headline: "Ready for a WhatsApp-first funnel?",
