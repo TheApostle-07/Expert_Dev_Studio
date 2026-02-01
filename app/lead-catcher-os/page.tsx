@@ -28,7 +28,7 @@ export default function LeadCatcherOSPage() {
   return (
     <div className="bg-transparent text-black">
       <main className="page-shell pb-24 pt-24">
-        <section className="relative overflow-hidden rounded-[32px] border border-black/10 bg-white/80 p-8 text-center shadow-[0_30px_80px_-45px_rgba(0,0,0,0.4)] sm:p-12">
+        <section className="relative overflow-hidden rounded-[32px] border border-black/10 bg-white/80 p-8 text-center shadow-[0_30px_80px_-45px_rgba(0,0,0,0.4)] sm:p-12 md:p-14">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(90deg,rgba(0,126,167,0.18),rgba(252,163,17,0.18),rgba(0,52,89,0.18))]" />
             <div className="absolute left-[-6rem] top-[-6rem] h-44 w-44 rounded-full bg-cerulean/15 blur-3xl" />
@@ -39,10 +39,10 @@ export default function LeadCatcherOSPage() {
             <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-black/60 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.25)]">
               Ultimate Business Solution
             </span>
-            <h1 className="mt-9 text-4xl font-semibold text-prussian sm:text-5xl">
+            <h1 className="mt-9 text-4xl font-semibold text-prussian sm:text-5xl md:text-6xl text-balance">
               {leadCatcherOSCopy.hero.title}
             </h1>
-            <p className="mt-4 mx-auto max-w-2xl text-base text-black/70">
+            <p className="mt-4 mx-auto max-w-2xl text-base text-black/70 sm:text-lg text-balance">
               {leadCatcherOSCopy.hero.subhead}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -71,10 +71,10 @@ export default function LeadCatcherOSPage() {
 
           <div className="relative mx-auto mt-10 w-full max-w-3xl rounded-3xl border border-black/10 bg-white/95 p-6 text-center shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/40">Promise</p>
-            <h2 className="mt-3 text-2xl font-semibold text-prussian">
+            <h2 className="mt-3 text-2xl font-semibold text-prussian text-balance">
               A WhatsApp-first funnel that turns interest into action.
             </h2>
-            <p className="mt-3 text-sm text-black/70">
+            <p className="mt-3 text-sm text-black/70 sm:text-base text-balance">
               Launch in 48 hours and start capturing higher-intent leads with clear positioning, trust, and follow-through.
             </p>
             <div className="mt-6 grid gap-3 text-sm text-black/70 md:grid-cols-3">
@@ -91,14 +91,14 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="what-you-get" className="relative mt-24 pt-6 text-center">
+        <section id="what-you-get" className="relative mt-16 pt-6 text-center sm:mt-20 md:mt-24">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cerulean/40 to-transparent" />
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">What you get</p>
-            <h2 className="mt-3 text-2xl font-semibold text-prussian">
+            <h2 className="mt-3 text-2xl font-semibold text-prussian text-balance">
               A system built to close faster
             </h2>
-            <p className="mt-2 text-sm text-black/70">
+            <p className="mt-2 text-sm text-black/70 sm:text-base text-balance">
               Everything your prospects need to trust you and take the next step.
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section className="mt-20 text-center">
+        <section className="mt-16 text-center sm:mt-20 md:mt-24">
           <div className="rounded-3xl border border-black/10 bg-white/90 p-8 shadow-[0_20px_60px_-35px_rgba(0,0,0,0.3)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">How it works</p>
             <div className="mt-6 grid gap-6 md:grid-cols-3">
@@ -137,15 +137,15 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="demo" className="relative mt-20 text-center">
+        <section id="demo" className="relative mt-16 text-center sm:mt-20 md:mt-24">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/35 to-transparent" />
           <div className="flex flex-col items-center gap-6">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-black/50">Proof</p>
-              <h2 className="mt-3 text-2xl font-semibold text-prussian">
+              <h2 className="mt-3 text-2xl font-semibold text-prussian text-balance">
                 Proof that builds confidence
               </h2>
-              <p className="mt-2 text-sm text-black/70">
+              <p className="mt-2 text-sm text-black/70 sm:text-base text-balance">
                 Honest, minimal proof that signals quality without fluff.
               </p>
             </div>
@@ -182,7 +182,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="pricing" className="relative mt-24">
+        <section id="pricing" className="relative mt-16 sm:mt-20 md:mt-24">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-24 bg-[radial-gradient(circle_at_top,rgba(0,126,167,0.14),transparent_70%)]" />
           <div className="rounded-[32px] border border-black/10 bg-white/95 p-10 text-center shadow-[0_30px_80px_-45px_rgba(0,0,0,0.4)]">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -192,7 +192,9 @@ export default function LeadCatcherOSPage() {
                   <h2 className="text-4xl font-semibold text-prussian">{leadCatcherOSCopy.pricing.price}</h2>
                   <span className="text-xs uppercase tracking-[0.25em] text-black/40">All-inclusive</span>
                 </div>
-                <p className="mt-2 text-sm text-black/70">{leadCatcherOSCopy.pricing.headline}</p>
+                <p className="mt-2 text-sm text-black/70 sm:text-base text-balance">
+                  {leadCatcherOSCopy.pricing.headline}
+                </p>
               </div>
               <LeadCatcherModalLauncher
                 label="Get Demo + Pricing"
@@ -215,7 +217,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-16 sm:mt-20 md:mt-24">
           <div className="grid gap-4 md:grid-cols-2">
             {leadCatcherOSCopy.guarantee.map((item) => (
               <div key={item} className="rounded-2xl border border-black/10 bg-white px-4 py-4 text-sm text-black/70">
@@ -225,11 +227,11 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="faq" className="relative mt-24 pt-6 text-center">
+        <section id="faq" className="relative mt-16 pt-6 text-center sm:mt-20 md:mt-24">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-prussian/35 to-transparent" />
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">FAQ</p>
-            <h2 className="mt-3 text-2xl font-semibold text-prussian">Answers, upfront</h2>
+            <h2 className="mt-3 text-2xl font-semibold text-prussian text-balance">Answers, upfront</h2>
           </div>
           <div className="mt-6 grid gap-4 text-left md:grid-cols-2">
             {leadCatcherFaq.map((item) => (
@@ -243,9 +245,13 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section className="mt-20 rounded-3xl border border-black/10 bg-white/90 p-8 text-center shadow-[0_20px_60px_-35px_rgba(0,0,0,0.3)]">
-          <h2 className="text-2xl font-semibold text-prussian">{leadCatcherOSCopy.finalCta.headline}</h2>
-          <p className="mt-3 text-sm text-black/70">{leadCatcherOSCopy.finalCta.subhead}</p>
+        <section className="mt-16 rounded-3xl border border-black/10 bg-white/90 p-8 text-center shadow-[0_20px_60px_-35px_rgba(0,0,0,0.3)] sm:mt-20 md:mt-24">
+          <h2 className="text-2xl font-semibold text-prussian text-balance">
+            {leadCatcherOSCopy.finalCta.headline}
+          </h2>
+          <p className="mt-3 text-sm text-black/70 sm:text-base text-balance">
+            {leadCatcherOSCopy.finalCta.subhead}
+          </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <LeadCatcherModalLauncher
               label="Get Demo + Pricing"
