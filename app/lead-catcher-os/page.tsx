@@ -27,12 +27,19 @@ export default function LeadCatcherOSPage() {
   return (
     <div className="bg-transparent text-black">
       <main className="page-shell pb-24 pt-24">
-        <section className="grid gap-10">
-          <div className="text-center">
-            <h1 className="mt-3 text-4xl font-semibold text-prussian sm:text-5xl">
+        <section className="relative grid gap-10 overflow-hidden rounded-3xl border border-black/10 bg-white/80 p-8 text-center shadow-[0_25px_70px_-40px_rgba(0,0,0,0.35)] sm:p-10">
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div className="absolute left-[-6rem] top-[-6rem] h-40 w-40 rounded-full bg-cerulean/10 blur-3xl" />
+            <div className="absolute right-[-7rem] bottom-[-7rem] h-48 w-48 rounded-full bg-accent/15 blur-3xl" />
+          </div>
+          <div className="relative text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-black/60">
+              Lead Capture OS
+            </span>
+            <h1 className="mt-4 text-4xl font-semibold text-prussian sm:text-5xl">
               {leadCatcherOSCopy.hero.title}
             </h1>
-            <p className="mt-4 mx-auto max-w-xl text-base text-black/70">
+            <p className="mt-4 mx-auto max-w-2xl text-base text-black/70">
               {leadCatcherOSCopy.hero.subhead}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -59,7 +66,7 @@ export default function LeadCatcherOSPage() {
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-2xl rounded-3xl border border-black/10 bg-white/90 p-6 text-center shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
+          <div className="relative mx-auto w-full max-w-2xl rounded-3xl border border-black/10 bg-white/95 p-6 text-center shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/40">Promise</p>
             <h2 className="mt-3 text-2xl font-semibold text-prussian">
               A WhatsApp-first funnel installed fast.
