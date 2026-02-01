@@ -3,6 +3,7 @@ export type Testimonial = {
   role: string;
   city: string;
   quote: string;
+  avatar?: string;
   outcome?: string;
   metric?: string;
   timeframe?: string;
@@ -14,6 +15,7 @@ export const testimonials: Testimonial[] = [
     name: "Ritika Sharma",
     role: "Clinic Owner",
     city: "Gurugram",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     quote:
       "The funnel feels premium and the WhatsApp CTA makes it easy for patients to reach us without drop-off.",
     outcome: "Smoother appointment requests",
@@ -23,6 +25,7 @@ export const testimonials: Testimonial[] = [
     name: "Siddharth Mehta",
     role: "Fitness Coach",
     city: "Pune",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     quote:
       "We finally have a single page that explains the offer and captures leads cleanly. It’s simple and fast.",
     timeframe: "First week",
@@ -32,6 +35,7 @@ export const testimonials: Testimonial[] = [
     name: "Ananya Kapoor",
     role: "Real Estate Consultant",
     city: "Mumbai",
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
     quote:
       "Great structure and a solid close kit. The WhatsApp flow feels natural for high-intent leads.",
     verified: true,
@@ -40,6 +44,7 @@ export const testimonials: Testimonial[] = [
     name: "Kabir Nair",
     role: "Tuition Founder",
     city: "Bengaluru",
+    avatar: "https://randomuser.me/api/portraits/men/75.jpg",
     quote:
       "The page makes it clear why we’re different and helps parents reach out instantly.",
     verified: true,

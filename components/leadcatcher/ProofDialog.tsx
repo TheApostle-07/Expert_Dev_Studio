@@ -57,6 +57,14 @@ export default function ProofDialog({
                   key={`${item.name}-${item.city}`}
                   className="rounded-2xl border border-black/10 bg-white px-4 py-4"
                 >
+                  <div className="mb-3 flex items-center justify-center gap-2">
+                    <img
+                      src={item.avatar}
+                      alt={`${item.name} avatar`}
+                      className="h-10 w-10 rounded-full border border-black/10 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="mb-3 flex justify-center gap-1">
                     {Array.from({ length: 5 }).map((_, index) => (
                       <Star key={index} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
