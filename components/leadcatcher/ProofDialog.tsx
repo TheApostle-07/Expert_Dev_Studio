@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Star, X } from "lucide-react";
 import type { Testimonial } from "../../content/testimonials";
 
@@ -10,6 +10,31 @@ export default function ProofDialog({
   testimonials: Testimonial[];
 }) {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const previous = document.body.style.overflow;
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = previous || "";
+    }
+    return () => {
+      document.body.style.overflow = previous || "";
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        close();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <div className="w-full">
@@ -24,14 +49,15 @@ export default function ProofDialog({
         <div className="fixed inset-0 z-[120] flex items-center justify-center px-4 py-6">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"
-            onClick={() => setOpen(false)}
+            onClick={close}
             aria-hidden
           />
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="lcos-proof-title"
-            className="relative z-[121] w-full max-w-3xl rounded-3xl border border-black/10 bg-white p-6 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.35)]"
+            className="relative z-[121] w-full max-w-3xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white p-6 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.35)]"
+            onClick={(event) => event.stopPropagation()}
           >
             <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
               <div aria-hidden />
@@ -44,7 +70,7 @@ export default function ProofDialog({
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-black/60 hover:bg-black/5"
                   aria-label="Close"
                 >
