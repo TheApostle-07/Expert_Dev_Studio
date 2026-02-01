@@ -185,8 +185,8 @@ export default function LeadCatcherOSPage() {
         <section id="pricing" className="relative mt-16 sm:mt-20 md:mt-24">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-24 bg-[radial-gradient(circle_at_top,rgba(0,126,167,0.14),transparent_70%)]" />
           <div className="rounded-[32px] border border-black/10 bg-white/95 p-10 text-center shadow-[0_30px_80px_-45px_rgba(0,0,0,0.4)]">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
+            <div className="flex flex-col items-center gap-6">
+              <div className="text-center">
                 <p className="text-xs uppercase tracking-[0.3em] text-black/50">Pricing</p>
                 <div className="mt-3 inline-flex items-baseline gap-2">
                   <h2 className="text-4xl font-semibold text-prussian">{leadCatcherOSCopy.pricing.price}</h2>
