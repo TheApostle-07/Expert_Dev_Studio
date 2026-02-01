@@ -102,6 +102,30 @@ export default function LeadCatcherModal() {
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
+    const previous = document.body.style.overflow;
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = previous || "";
+    }
+    return () => {
+      document.body.style.overflow = previous || "";
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        close();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useEffect(() => {
     const utm = getUtmParams();
     if (Object.values(utm).some(Boolean)) {
       storeUtm(utm);
@@ -191,7 +215,8 @@ export default function LeadCatcherModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="leadcatcher-modal-title"
-            className="relative z-[101] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl border border-black/10 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] sm:p-7"
+            className="relative z-[101] w-full max-w-lg max-h-[90vh] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] sm:p-7"
+            onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
               <div>
