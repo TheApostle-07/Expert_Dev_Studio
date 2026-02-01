@@ -231,7 +231,7 @@ export default function LeadCatcherOSPage() {
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">FAQ</p>
             <h2 className="mt-3 text-2xl font-semibold text-prussian">Answers, upfront</h2>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 text-left md:grid-cols-2">
             {leadCatcherFaq.map((item) => (
               <details key={item.question} className="rounded-2xl border border-black/10 bg-white px-4 py-4">
                 <summary className="cursor-pointer text-sm font-semibold text-prussian">
