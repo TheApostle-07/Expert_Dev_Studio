@@ -191,7 +191,7 @@ export default function LeadCatcherModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="leadcatcher-modal-title"
-            className="relative z-[101] w-full max-w-lg rounded-3xl border border-black/10 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)]"
+            className="relative z-[101] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl border border-black/10 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] sm:p-7"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -200,7 +200,7 @@ export default function LeadCatcherModal() {
                   Get Demo + Pricing
                 </h2>
                 <p className="mt-2 text-sm text-black/70">
-                  Share a few details. We’ll message you on WhatsApp with the demo + next steps.
+                  Quick details only. We’ll WhatsApp the demo + next steps.
                 </p>
               </div>
               <button
@@ -238,18 +238,6 @@ export default function LeadCatcherModal() {
                 />
               </div>
 
-              <div className="grid gap-2">
-                <label className="text-xs font-semibold uppercase tracking-wide text-black/60">
-                  Email (optional)
-                </label>
-                <input
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cerulean/40"
-                  placeholder="you@company.com"
-                />
-              </div>
-
               <div className="grid gap-2 sm:grid-cols-2">
                 <div className="grid gap-2">
                   <label className="text-xs font-semibold uppercase tracking-wide text-black/60">
@@ -280,17 +268,25 @@ export default function LeadCatcherModal() {
                 </div>
               </div>
 
-              <div className="grid gap-2">
-                <label className="text-xs font-semibold uppercase tracking-wide text-black/60">
-                  Message (optional)
-                </label>
-                <textarea
-                  value={message}
-                  onChange={(event) => setMessage(event.target.value)}
-                  className="min-h-[90px] w-full rounded-xl border border-black/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cerulean/40"
-                  placeholder="Tell us about your offer or target audience."
-                />
-              </div>
+              <details className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-left">
+                <summary className="cursor-pointer text-xs font-semibold uppercase tracking-[0.3em] text-black/50">
+                  Optional details
+                </summary>
+                <div className="mt-3 grid gap-3">
+                  <input
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cerulean/40"
+                    placeholder="Email (optional)"
+                  />
+                  <textarea
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                    className="min-h-[90px] w-full rounded-xl border border-black/10 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cerulean/40"
+                    placeholder="Anything we should know? (optional)"
+                  />
+                </div>
+              </details>
 
               <input
                 value={honeypot}
