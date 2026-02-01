@@ -119,7 +119,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-20 text-center">
           <div className="rounded-3xl border border-black/10 bg-white/90 p-8 shadow-[0_20px_60px_-35px_rgba(0,0,0,0.3)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">How it works</p>
             <div className="mt-6 grid gap-6 md:grid-cols-3">

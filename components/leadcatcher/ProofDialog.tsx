@@ -13,11 +13,11 @@ export default function ProofDialog({
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="w-full">
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-prussian hover:bg-black/5"
+        className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-5 py-2 text-xs font-semibold text-prussian shadow-[0_10px_26px_-20px_rgba(0,0,0,0.25)] hover:bg-black/5"
       >
         See more proof
       </button>
@@ -34,7 +34,7 @@ export default function ProofDialog({
             aria-labelledby="lcos-proof-title"
             className="relative z-[121] w-full max-w-3xl rounded-3xl border border-black/10 bg-white p-6 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.35)]"
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col items-center gap-3 text-center">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-black/50">Proof</p>
                 <h3 id="lcos-proof-title" className="mt-2 text-xl font-semibold text-prussian">
@@ -44,13 +44,13 @@ export default function ProofDialog({
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-full border border-black/10 px-3 py-1 text-xs text-black/60 hover:bg-black/5"
+                className="rounded-full border border-black/10 px-4 py-1 text-xs text-black/60 hover:bg-black/5"
               >
                 Close
               </button>
             </div>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="mt-6 grid gap-4 md:grid-cols-2 text-center">
               {testimonials.map((item) => (
                 <div
                   key={`${item.name}-${item.city}`}
@@ -69,7 +69,7 @@ export default function ProofDialog({
               ))}
             </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <div className="mt-6 grid gap-3 sm:grid-cols-3 text-center">
               {proofAssets.map((asset) => (
                 <div
                   key={asset.title}
