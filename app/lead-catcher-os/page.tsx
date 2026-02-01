@@ -36,9 +36,9 @@ export default function LeadCatcherOSPage() {
           </div>
           <div className="relative mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-black/60 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.25)]">
-              Lead Catcher OS
+              Ultimate Business Solution
             </span>
-            <h1 className="mt-5 text-4xl font-semibold text-prussian sm:text-5xl">
+            <h1 className="mt-7 text-4xl font-semibold text-prussian sm:text-5xl">
               {leadCatcherOSCopy.hero.title}
             </h1>
             <p className="mt-4 mx-auto max-w-2xl text-base text-black/70">
