@@ -182,29 +182,35 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="pricing" className="relative mt-20">
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cerulean/40 to-transparent" />
-          <div className="rounded-3xl border border-black/10 bg-white/90 p-8 text-center shadow-[0_22px_65px_-38px_rgba(0,0,0,0.35)]">
+        <section id="pricing" className="relative mt-24">
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-24 bg-[radial-gradient(circle_at_top,rgba(0,126,167,0.14),transparent_70%)]" />
+          <div className="rounded-[32px] border border-black/10 bg-white/95 p-10 text-center shadow-[0_30px_80px_-45px_rgba(0,0,0,0.4)]">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-black/50">Pricing</p>
-                <h2 className="mt-3 text-3xl font-semibold text-prussian">{leadCatcherOSCopy.pricing.price}</h2>
+                <div className="mt-3 inline-flex items-baseline gap-2">
+                  <h2 className="text-4xl font-semibold text-prussian">{leadCatcherOSCopy.pricing.price}</h2>
+                  <span className="text-xs uppercase tracking-[0.25em] text-black/40">All-inclusive</span>
+                </div>
                 <p className="mt-2 text-sm text-black/70">{leadCatcherOSCopy.pricing.headline}</p>
               </div>
               <LeadCatcherModalLauncher
                 label="Get Demo + Pricing"
-                className="inline-flex items-center justify-center rounded-full bg-prussian px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.35)] transition hover:bg-prussian/90"
+                className="inline-flex items-center justify-center rounded-full bg-prussian px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_-22px_rgba(0,0,0,0.45)] transition hover:bg-prussian/90"
               />
             </div>
-            <div className="mt-6 grid gap-3 md:grid-cols-2">
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
               {leadCatcherOSCopy.pricing.inclusions.map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-black/70 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.25)]"
+                  className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm text-black/70 shadow-[0_12px_30px_-22px_rgba(0,0,0,0.25)]"
                 >
                   {item}
                 </div>
               ))}
+            </div>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-4 py-2 text-xs text-black/60">
+              Delivery: 48 hours after intake · 1 revision included
             </div>
           </div>
         </section>
