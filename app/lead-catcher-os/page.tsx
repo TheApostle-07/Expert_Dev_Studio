@@ -29,7 +29,6 @@ export default function LeadCatcherOSPage() {
       <main className="page-shell pb-24 pt-24">
         <section className="grid gap-10">
           <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-black/50">Product</p>
             <h1 className="mt-3 text-4xl font-semibold text-prussian sm:text-5xl">
               {leadCatcherOSCopy.hero.title}
             </h1>
