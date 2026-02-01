@@ -63,6 +63,12 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="Primary">
+            <a
+              href="/lead-catcher-os"
+              className="inline-flex items-center rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-prussian/80 transition hover:text-prussian hover:shadow-[0_6px_16px_-10px_rgba(0,0,0,0.3)]"
+            >
+              Lead Catcher OS
+            </a>
             {links.map((l) => {
               const active = pathname === l.href;
               return (
@@ -122,6 +128,12 @@ export default function Header() {
             >
               <div className="container mx-auto px-4 py-3 sm:px-6 lg:px-8">
                 <nav className="grid gap-2" aria-label="Mobile">
+                  <a
+                    href="/lead-catcher-os"
+                    className="rounded-lg border border-black/10 bg-white/90 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-prussian/80 shadow-[0_8px_18px_-14px_rgba(0,0,0,0.35)]"
+                  >
+                    Lead Catcher OS
+                  </a>
                   {links.map((l) => {
                     const active = pathname === l.href;
                     return (
