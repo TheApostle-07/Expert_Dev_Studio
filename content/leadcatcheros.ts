@@ -2,7 +2,7 @@ export const leadCatcherOSCopy = {
   hero: {
     title: "Lead Catcher OS",
     subhead:
-      "A premium, WhatsApp-first funnel that captures leads and makes it easy to say yes.",
+      "A WhatsApp-first conversion system that turns interest into booked calls and paid deposits.",
     primaryCta: "Get Demo + Pricing",
     secondaryCta: "See what you get",
     metrics: [
