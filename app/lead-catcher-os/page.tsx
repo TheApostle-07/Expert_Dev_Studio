@@ -90,7 +90,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="what-you-get" className="relative mt-20 text-center">
+        <section id="what-you-get" className="relative mt-24 text-center">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cerulean/40 to-transparent" />
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">What you get</p>
