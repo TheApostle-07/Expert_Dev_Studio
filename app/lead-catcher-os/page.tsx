@@ -81,15 +81,13 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="what-you-get" className="mt-20">
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-black/50">What you get</p>
-              <h2 className="mt-3 text-2xl font-semibold text-prussian">A full conversion system</h2>
-              <p className="mt-2 text-sm text-black/70">
-                Everything needed to turn WhatsApp interest into qualified leads.
-              </p>
-            </div>
+        <section id="what-you-get" className="mt-20 text-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-black/50">What you get</p>
+            <h2 className="mt-3 text-2xl font-semibold text-prussian">A full conversion system</h2>
+            <p className="mt-2 text-sm text-black/70">
+              Everything needed to turn WhatsApp interest into qualified leads.
+            </p>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {leadCatcherOSCopy.whatYouGet.map((item) => (
@@ -126,8 +124,8 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="demo" className="mt-20">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <section id="demo" className="mt-20 text-center">
+          <div className="flex flex-col items-center gap-6">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-black/50">Proof</p>
               <h2 className="mt-3 text-2xl font-semibold text-prussian">Believable, minimal proof</h2>
@@ -187,7 +185,7 @@ export default function LeadCatcherOSPage() {
           </div>
         </section>
 
-        <section id="faq" className="mt-20">
+        <section id="faq" className="mt-20 text-center">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">FAQ</p>
             <h2 className="mt-3 text-2xl font-semibold text-prussian">Answers, upfront</h2>
