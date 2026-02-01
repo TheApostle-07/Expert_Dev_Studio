@@ -27,16 +27,16 @@ export default function LeadCatcherOSPage() {
   return (
     <div className="bg-transparent text-black">
       <main className="page-shell pb-24 pt-24">
-        <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="text-center lg:text-left">
+        <section className="grid gap-10">
+          <div className="text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-black/50">Product</p>
             <h1 className="mt-3 text-4xl font-semibold text-prussian sm:text-5xl">
               {leadCatcherOSCopy.hero.title}
             </h1>
-            <p className="mt-4 mx-auto max-w-xl text-base text-black/70 lg:mx-0">
+            <p className="mt-4 mx-auto max-w-xl text-base text-black/70">
               {leadCatcherOSCopy.hero.subhead}
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <LeadCatcherModalLauncher
                 label={leadCatcherOSCopy.hero.primaryCta}
                 className="inline-flex items-center justify-center rounded-full bg-prussian px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.35)] transition hover:bg-prussian/90"
@@ -48,7 +48,7 @@ export default function LeadCatcherOSPage() {
                 {leadCatcherOSCopy.hero.secondaryCta}
               </a>
             </div>
-            <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
               {leadCatcherOSCopy.hero.metrics.map((metric) => (
                 <span
                   key={metric}
@@ -60,7 +60,7 @@ export default function LeadCatcherOSPage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-white/90 p-6 shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
+          <div className="mx-auto w-full max-w-2xl rounded-3xl border border-black/10 bg-white/90 p-6 text-center shadow-[0_18px_50px_-30px_rgba(0,0,0,0.25)]">
             <p className="text-xs uppercase tracking-[0.3em] text-black/40">Promise</p>
             <h2 className="mt-3 text-2xl font-semibold text-prussian">
               A WhatsApp-first funnel installed fast.
