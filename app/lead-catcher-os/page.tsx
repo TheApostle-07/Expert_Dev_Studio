@@ -12,7 +12,7 @@ import LeadCatcherModal, {
 } from "../../components/leadcatcher/LeadCatcherModal";
 import ProofDialog from "../../components/leadcatcher/ProofDialog";
 import { leadCatcherOSCopy } from "../../content/leadcatcheros";
-import { testimonials, proofAssets } from "../../content/testimonials";
+import { testimonials } from "../../content/testimonials";
 import { leadCatcherFaq } from "../../content/faq";
 
 const featureIcons: Record<string, JSX.Element> = {
@@ -149,7 +149,7 @@ export default function LeadCatcherOSPage() {
                 Honest, minimal proof that signals quality without fluff.
               </p>
             </div>
-            <ProofDialog testimonials={testimonials} proofAssets={proofAssets} />
+            <ProofDialog testimonials={testimonials} />
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {testimonials.slice(0, 3).map((item) => (

@@ -6,10 +6,8 @@ import type { Testimonial } from "../../content/testimonials";
 
 export default function ProofDialog({
   testimonials,
-  proofAssets,
 }: {
   testimonials: Testimonial[];
-  proofAssets: { title: string; description: string }[];
 }) {
   const [open, setOpen] = useState(false);
 
@@ -85,17 +83,6 @@ export default function ProofDialog({
               ))}
             </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-3 text-center">
-              {proofAssets.map((asset) => (
-                <div
-                  key={asset.title}
-                  className="rounded-2xl border border-dashed border-black/10 bg-black/5 px-4 py-4 text-xs text-black/60"
-                >
-                  <p className="text-sm font-semibold text-prussian">{asset.title}</p>
-                  <p className="mt-2">{asset.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       ) : null}
